@@ -1,5 +1,6 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.dwt;
 
+import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -53,5 +54,33 @@ public class ExtensionerTest {
 
         double[] expected = {1, 2, 3, 4, 1, 2, 3, 4};
         assertArrayEquals(expected, result, 0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testDataCantBeNull() {
+        double[] data = null;
+        Filter filter = new Filter() {
+
+            @Override
+            public double[] getCoeff() {
+                double[] filter = {2, 8, 4, -1};
+                return filter;
+            }
+        };
+        new Extensioner().extend(data, filter);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFilterCantBeNull() {
+        double[] data = {11,1,1,1};
+        Filter filter = null;
+        new Extensioner().extend(data, filter);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testArgsCantBeNull() {
+        double[] data = null;
+        Filter filter = null;
+        new Extensioner().extend(data, filter);
     }
 }
