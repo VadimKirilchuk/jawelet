@@ -1,5 +1,7 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.dwt;
 
+import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
+
 /**
  * Instances of this class correspond for down-sampling  and up-sampling
  * data sequences.
@@ -17,6 +19,8 @@ public class Sampler {
      * @return downsampled data.
      */
     public double[] downsample(double[] data) {
+        Assert.argNotNull(data);
+        
         double[] result = new double[data.length / 2];
 
         for (int i = 0; i < result.length; ++i) {
@@ -35,6 +39,8 @@ public class Sampler {
      * @return upsampled data.
      */
     public double[] upsample(double[] data) {
+        Assert.argNotNull(data);
+
         double[] result = new double[data.length * 2];
 
         for (int i = 0; i < data.length; ++i) {
