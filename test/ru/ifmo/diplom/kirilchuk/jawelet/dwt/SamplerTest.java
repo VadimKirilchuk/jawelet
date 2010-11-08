@@ -13,7 +13,8 @@ import static org.junit.Assert.*;
  */
 public class SamplerTest {
 
-    public SamplerTest() {}
+    public SamplerTest() {
+    }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
@@ -36,14 +37,14 @@ public class SamplerTest {
      */
     @Test
     public void testDownsample() {
-        double[] data = {1,0,1,0,1,0,1,0};
-        
+        double[] data = {1, 0, 1, 0, 1, 0, 1, 0};
+
         Sampler sampler = new Sampler();
-        
-        double[] expResult = {1,1,1,1};
+
+        double[] expResult = {1, 1, 1, 1};
         double[] result = sampler.downsample(data);
 
-        assertEquals(data.length/2, result.length);
+        assertEquals(data.length / 2, result.length);
 
         assertArrayEquals(expResult, result, 0);
     }
@@ -53,20 +54,28 @@ public class SamplerTest {
      */
     @Test
     public void testUpsample() {
-        double[] data = {1,1,1,1};
+        double[] data = {1, 1, 1, 1};
 
         Sampler sampler = new Sampler();
 
-        double[] expResult = {1,0,1,0,1,0,1,0};
+        double[] expResult = {1, 0, 1, 0, 1, 0, 1, 0};
         double[] result = sampler.upsample(data);
 
-        assertEquals(data.length*2, result.length);
+        assertEquals(data.length * 2, result.length);
 
         assertArrayEquals(expResult, result, 0);
     }
 
-    @Test(expected=IllegalArgumentException.class)
-    public void testDataCantBeNull() {
+    @Test(expected = IllegalArgumentException.class)
+    public void testDataToUpsampleCantBeNull() {
+        double[] data = null;
+
+        Sampler sampler = new Sampler();
+        sampler.upsample(data);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testDataToDownsampleCantBeNull() {
         double[] data = null;
 
         Sampler sampler = new Sampler();

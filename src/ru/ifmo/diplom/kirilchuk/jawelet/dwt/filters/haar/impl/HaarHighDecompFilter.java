@@ -9,7 +9,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
  */
 public class HaarHighDecompFilter implements Filter {
 
-    private static final double[] COEFFICIENTS = {-1, 1};
+    private static final double[] COEFFICIENTS = {-1, 1};//as in matlab
 
     @Override
     public double[] getCoeff() {
