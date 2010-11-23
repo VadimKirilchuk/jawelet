@@ -34,7 +34,8 @@ public class PeriodicalExtensionTransformStrategyTest {
     @After
     public void tearDown() {
     }
-    public static double DOBLE_COMPARISON_DELTA = 1.0e-13;
+    
+    private static double DOBLE_COMPARISON_DELTA = 1.0e-13;
     private final PeriodicalExtensionTransformStrategy instance = new PeriodicalExtensionTransformStrategy();
 
     /**
@@ -64,27 +65,27 @@ public class PeriodicalExtensionTransformStrategyTest {
         expect = new double[]{393.5000, 115.1000, 327.2000, 410.7000};
         decomposeLowWithAssert(data, filter, expect);
 
-        data = new double[]{15.14, 18.2, 16.2, 29.4, 56.4, 20.8, 150.9, 302.2, 1000.1, 1.1};
-        filter = new Filter() {
-
-            @Override
-            public double[] getCoeff() {
-                return new double[]{4.235, 23.3, 245.2,532.2, 76.3,34.2};
-            }
-        };
-        expect = new double[]{0.4731, 0.1914, 0.4271, 1.8123, 5.6117};
-        decomposeLowWithAssert(data, filter, expect);
-
-//        data = new double[]{1,2,3,4};
+//        data = new double[]{15.14, 18.2, 16.2, 29.4, 56.4, 20.8, 150.9, 302.2, 1000.1, 1.1};
 //        filter = new Filter() {
 //
 //            @Override
 //            public double[] getCoeff() {
-//                return new double[]{1,2,3,4,5,6};
+//                return new double[]{4.235, 23.3, 245.2,532.2, 76.3,34.2};
 //            }
 //        };
-//        expect = new double[]{58, 44}; //don`t know why matlab has 58, 44 but my realization 44,58
+//        expect = new double[]{0.4731, 0.1914, 0.4271, 1.8123, 5.6117};
 //        decomposeLowWithAssert(data, filter, expect);
+
+        data = new double[]{1,2,3,4};
+        filter = new Filter() {
+
+            @Override
+            public double[] getCoeff() {
+                return new double[]{1,2,3,4,5,6};
+            }
+        };
+        expect = new double[]{58, 44}; //don`t know why matlab has 58, 44 but my realization 44,58
+        decomposeLowWithAssert(data, filter, expect);
     }
 
     private void decomposeLowWithAssert(double[] data, Filter filter, double[] expect) {

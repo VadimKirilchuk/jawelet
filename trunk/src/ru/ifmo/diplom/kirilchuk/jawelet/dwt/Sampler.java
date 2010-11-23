@@ -21,7 +21,7 @@ public class Sampler {
     public double[] downsample(double[] data) {
         Assert.argNotNull(data);
         
-        double[] result = new double[data.length / 2];
+        double[] result = new double[(data.length + 1) / 2];
 
         for (int i = 0; i < result.length; ++i) {
             result[i] = data[i * 2];

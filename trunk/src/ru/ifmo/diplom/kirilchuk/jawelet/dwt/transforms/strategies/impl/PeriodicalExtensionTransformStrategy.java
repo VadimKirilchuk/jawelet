@@ -5,7 +5,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.TransformStrategy;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
 
 /**
- *
+ * @deprecated wrong pereodic extension. Need to be rewrited.
  * @author Kirilchuk V.E.
  */
 public class PeriodicalExtensionTransformStrategy implements TransformStrategy {
@@ -74,6 +74,7 @@ public class PeriodicalExtensionTransformStrategy implements TransformStrategy {
                 int shift = 2 * i + j;
                 int m = shift % dataLength;
                 result[i] += data[m] * filterCoeff[filterCoeff.length -1 - j];
+                System.out.println(result[i]);
             }
         }
 

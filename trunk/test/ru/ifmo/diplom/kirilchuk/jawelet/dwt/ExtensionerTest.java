@@ -37,7 +37,7 @@ public class ExtensionerTest {
      * Test of extend method, of class Extensioner.
      */
     @Test
-    public void testExtend() {
+    public void testExtendEnd() {
         double[] data = {1, 2, 3, 4};
         Filter filter = new Filter() {
 
@@ -53,6 +53,31 @@ public class ExtensionerTest {
         assertEquals(data.length + filter.getCoeff().length, result.length);
 
         double[] expected = {1, 2, 3, 4, 1, 2, 3, 4};
+        assertArrayEquals(expected, result, 0);
+    }
+
+    /**
+     * Test of extend method, of class Extensioner.
+     */
+    @Test
+    public void testExtendBeginning() {
+        double[] data = {1, 2, 3, 4};
+        Filter filter = new Filter() {
+
+            @Override
+            public double[] getCoeff() {
+                double[] filter = {2, 8};
+                return filter;
+            }
+        };
+
+        Extensioner extensioner = new Extensioner();
+        extensioner.setMode(Extensioner.Mode.BEGINNING);
+        double[] result = extensioner.extend(data, filter);
+
+        assertEquals(data.length + filter.getCoeff().length, result.length);
+
+        double[] expected = {3, 4, 1, 2, 3, 4};
         assertArrayEquals(expected, result, 0);
     }
 
@@ -72,11 +97,11 @@ public class ExtensionerTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testFilterCantBeNull() {
-        double[] data = {11,1,1,1};
+        double[] data = {11, 1, 1, 1};
         Filter filter = null;
         new Extensioner().extend(data, filter);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testArgsCantBeNull() {
         double[] data = null;
