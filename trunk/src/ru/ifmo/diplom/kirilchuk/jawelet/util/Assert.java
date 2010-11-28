@@ -7,8 +7,12 @@ package ru.ifmo.diplom.kirilchuk.jawelet.util;
 public class Assert {
 
     public static void valueIs2Power(int value) throws IllegalArgumentException {
+        valueIs2Power(value, "Data length");
+    }
+
+    public static void valueIs2Power(int value, String valueName) throws IllegalArgumentException {
         if ((value & (value - 1)) != 0) {
-            throw new IllegalArgumentException("Data length must be a power of two.");
+            throw new IllegalArgumentException(valueName + " must be a power of two.");
         }
     }
 

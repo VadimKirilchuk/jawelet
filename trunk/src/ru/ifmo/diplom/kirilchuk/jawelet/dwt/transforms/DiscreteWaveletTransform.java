@@ -1,8 +1,10 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms;
 
+import ru.ifmo.diplom.kirilchuk.jawelet.dwt.DecompositionResult;
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.FiltersFactory;
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.strategies.impl.StrategiesFactory;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
+import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
 
 /**
  * Abstract class that corresponds for providing basic implementation
@@ -26,6 +28,55 @@ public abstract class DiscreteWaveletTransform {
 
         this.filtersFactory = filtersFactory;
         this.strategy = strategiesFactory.getDefaultStrategy();
+    }
+
+    /**
+     * Performs dwt decomposition to maximal level.
+     *
+     * @param data input vector to decompose.
+     * @param level level to which decompose.
+     * @return result of decomposition.
+     */
+    public DecompositionResult decompose(double[] data) {
+        Assert.argNotNull(data);
+        Assert.valueIs2Power(data.length, "Input data");
+        Assert.argCondition(data.length >= 2, "Data length must be >= 2.");
+
+        int level = MathUtils.getExact2Power(data.length);
+        
+        return decompose(data, level);
+    }
+
+    /**
+     * Performs dwt decomposition to specified level. If level is
+     * more than maximal level availiable for the data, then
+     * the maximal level of decomposition will be returned.
+     *
+     * @param data input vector to decompose.
+     * @param level level to which decompose.
+     * @return result of decomposition.
+     */
+    public DecompositionResult decompose(double[] data, int level) {
+        Assert.argNotNull(data);
+        Assert.valueIs2Power(data.length, "Input data");
+        Assert.argCondition(data.length >= 2, "Data length must be >= 2.");
+        Assert.argCondition(level > 1, "Level argument must be >= 1.");
+
+        DecompositionResult result = new DecompositionResult();
+        double[] approximation;
+        double[] details;
+        for (int i = 1; i <= level; ++i) {
+            approximation = decomposeLow(data);
+            details = decomposeHigh(data);
+            result.setApproximation(approximation);
+            result.addDetails(details);
+            result.setLevel(i);
+            if(approximation.length == 1) {
+                break; //we can`t decompose more...
+            }
+        }
+
+        return result;
     }
 
     public double[] decomposeLow(double[] data) {
