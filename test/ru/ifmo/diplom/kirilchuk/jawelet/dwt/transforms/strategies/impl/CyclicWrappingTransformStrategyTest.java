@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.strategies.impl;
 
 import org.junit.After;
@@ -43,8 +39,8 @@ public class CyclicWrappingTransformStrategyTest {
      * Test of decomposeLow method, of class CyclicWrappingTransformStrategy.
      */
     @Test
-    public void testDecomposeLow() {
-        System.out.println("Test decomposeLow");
+    public void testDecomposeLowWithFilterLength2() {
+        System.out.println("Test decomposeLow with filter length2");
         double[] data = {11.1, 22.2, 33.3, 44.4, 55.5, 66.6};
         Filter lowDecompositionFilter = new Filter() {
 
@@ -100,10 +96,11 @@ public class CyclicWrappingTransformStrategyTest {
      * Test of reconstruct method, of class CyclicWrappingTransformStrategy.
      */
     @Test
-    public void testReconstruct() {
+    public void testReconstructEvenVectorWithFilterLength2() {
         System.out.println("reconstruct");
         double[] approximation = {5, 9, 7};
         double[] details = {-1, -1, 5};
+
         Filter lowReconstructionFilter = new Filter() {
 
             @Override
@@ -119,17 +116,22 @@ public class CyclicWrappingTransformStrategyTest {
             }
         };
 
-        CyclicWrappingTransformStrategy instance = new CyclicWrappingTransformStrategy();
-
         double[] expResult = {2, 4, 6, 8, 10, 12};
         double[] result = instance.reconstruct(approximation, details, lowReconstructionFilter, highReconstructionFilter);
         assertArrayEquals(expResult, result, 0);
 
         approximation = new double[]{6, 9, 12, 11};
         details       = new double[]{2, 3, 4, 9};
-
         expResult = new double[]{2, 8, 4, 12, 6, 16, 8, 20};
+
         result = instance.reconstruct(approximation, details, lowReconstructionFilter, highReconstructionFilter);
         assertArrayEquals(expResult, result, 0);
+
+        approximation = new double[]{55.5, 99.9, 144.3, 99.9};
+        details       = new double[]{-11.1, -11.1, -11.1, 77.7};
+        expResult = new double[]{22.2, 44.4, 66.6, 88.8, 111, 133.2, 155.4, 177.6 };
+
+        result = instance.reconstruct(approximation, details, lowReconstructionFilter, highReconstructionFilter);
+        assertArrayEquals(expResult, result, DOBLE_COMPARISON_DELTA);
     }
 }
