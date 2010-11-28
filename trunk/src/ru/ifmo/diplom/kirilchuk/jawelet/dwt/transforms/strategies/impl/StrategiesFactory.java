@@ -7,7 +7,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.TransformStrategy;
  * @author Kirilchuk V.E.
  */
 public class StrategiesFactory {
-    private static final TransformStrategy DEFAULT_STRATEGY = new PeriodicalExtensionTransformStrategy();
+    private static final TransformStrategy DEFAULT_STRATEGY = new CyclicWrappingTransformStrategy();
 
     public TransformStrategy getDefaultStrategy() {
         return DEFAULT_STRATEGY;

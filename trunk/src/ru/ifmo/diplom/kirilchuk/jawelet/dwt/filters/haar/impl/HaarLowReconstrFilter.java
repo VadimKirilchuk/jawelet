@@ -8,7 +8,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
  */
 public class HaarLowReconstrFilter implements Filter {
 
-    private static final double[] COEFFICIENTS = {1, 1};
+    private static final double[] COEFFICIENTS = {1/Math.sqrt(2), 1/Math.sqrt(2)};
 
     @Override
     public double[] getCoeff() {
