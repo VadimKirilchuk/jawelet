@@ -8,10 +8,14 @@ import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
  */
 public class HaarLowDecompFilter implements Filter {
 
-    private static final double[] COEFFICIENTS = {1, 1};
+    private static final double[] COEFFICIENTS = {1/Math.sqrt(2), 1/Math.sqrt(2)};
 
     @Override
     public double[] getCoeff() {
         return COEFFICIENTS;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(COEFFICIENTS[0]);
     }
 }

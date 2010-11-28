@@ -32,7 +32,7 @@ public class CyclicWrappingTransformStrategyTest {
     @After
     public void tearDown() {
     }
-    private static double DOBLE_COMPARISON_DELTA = 1.0e-8;
+    private static double DOBLE_COMPARISON_DELTA = 1.0e-12;
     private CyclicWrappingTransformStrategy instance = new CyclicWrappingTransformStrategy();
 
     /**
@@ -59,7 +59,7 @@ public class CyclicWrappingTransformStrategyTest {
                 return new double[]{15.54, 18.2};
             }
         };
-        expResult = new double[]{921.52199999, 1670.54999999, 1384.61399999};
+        expResult = new double[]{921.521999999999, 1670.549999999999, 1384.613999999999};
         decomposeLowWithAssert(data, lowDecompositionFilter, expResult);
     }
 
@@ -75,7 +75,6 @@ public class CyclicWrappingTransformStrategyTest {
     public void testDecomposeHigh() {
         System.out.println("Test decomposeHigh");
         double[] data = {46.2000, 565.8000, 12.1200, 163.5670, 123.1230, 90.8700, 18.3400};
-
         Filter highDecompositionFilter = new Filter() {
 
             @Override
@@ -83,7 +82,8 @@ public class CyclicWrappingTransformStrategyTest {
                 return new double[]{1.12, 1.21, 2.123, 12.2, 14.1, 7.8, 4.7};
             }
         };
-        double[] expResult = {9170.207971, 6777.29970999, 3234.1393};
+        double[] expResult = {9170.207970999999, 6777.299709999999, 3234.139300000000};
+
         decomposeHighWithAssert(data, highDecompositionFilter, expResult);
     }
 
