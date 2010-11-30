@@ -1,14 +1,14 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.strategies.impl;
 
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.TransformStrategy;
+import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.DWTransformStrategy;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
 
 /**
  * @deprecated wrong pereodic extension. Need to be rewrited.
  * @author Kirilchuk V.E.
  */
-public class PeriodicalExtensionTransformStrategy implements TransformStrategy {
+public class PeriodicalExtensionTransformStrategy implements DWTransformStrategy {
 
     /**
      * Default implementation of low frequency decomposition.

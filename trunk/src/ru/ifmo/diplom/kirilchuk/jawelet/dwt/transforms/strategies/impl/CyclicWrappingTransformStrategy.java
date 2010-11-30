@@ -1,16 +1,16 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.strategies.impl;
 
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.Extensioner;
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.Sampler;
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.Windower;
+import ru.ifmo.diplom.kirilchuk.jawelet.util.Extensioner;
+import ru.ifmo.diplom.kirilchuk.jawelet.util.Sampler;
+import ru.ifmo.diplom.kirilchuk.jawelet.util.Windower;
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.TransformStrategy;
+import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.DWTransformStrategy;
 
 /**
  *
  * @author Kirilchuk V.E.
  */
-public class CyclicWrappingTransformStrategy implements TransformStrategy {
+public class CyclicWrappingTransformStrategy implements DWTransformStrategy {
     private final Extensioner endExtensioner   = new Extensioner();
     private final Extensioner beginExtensioner = new Extensioner();
     {
@@ -69,7 +69,7 @@ public class CyclicWrappingTransformStrategy implements TransformStrategy {
         int filterLength = lowReconstructionFilter.getCoeff().length;
 
         result = windower.window(result, filterLength + 1, details.length * 2 + filterLength + 1);
-//        System.out.println(Arrays.toString(result));
+
         return result;
     }
 

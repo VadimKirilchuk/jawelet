@@ -14,4 +14,9 @@ public class HaarLowReconstrFilter implements Filter {
     public double[] getCoeff() {
         return COEFFICIENTS;
     }
+
+    @Override
+    public int getLength() {
+        return COEFFICIENTS.length;
+    }
 }

@@ -6,7 +6,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
  *
  * @author Kirilchuk V.E.
  */
-public interface TransformStrategy {
+public interface DWTransformStrategy {
 
     double[] decomposeLow(double[] data, Filter lowDecompositionFilter);
 

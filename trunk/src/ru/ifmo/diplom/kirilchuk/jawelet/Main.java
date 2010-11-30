@@ -10,15 +10,15 @@ import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.haar.impl.HaarWaveletTran
  */
 public class Main {
     public static void main(String[] args) {
-        double[] data = {0,2,4,8,16,32,64,128};
-
-        DiscreteWaveletTransform transform = new HaarWaveletTransform();
-        double[] result = transform.decomposeLow(data);
-
-        System.out.println(Arrays.toString(result));
-
-        result = transform.decomposeHigh(data);
-
-        System.out.println(Arrays.toString(result));
+//        double[] data = {0,2,4,8,16,32,64,128};
+//
+//        DiscreteWaveletTransform transform = new HaarWaveletTransform();
+//        double[] result = transform.decomposeLow(data);
+//
+//        System.out.println(Arrays.toString(result));
+//
+//        result = transform.decomposeHigh(data);
+//
+//        System.out.println(Arrays.toString(result));
     }
 }

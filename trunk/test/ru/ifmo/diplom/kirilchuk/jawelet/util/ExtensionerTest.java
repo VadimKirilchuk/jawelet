@@ -1,4 +1,4 @@
-package ru.ifmo.diplom.kirilchuk.jawelet.dwt;
+package ru.ifmo.diplom.kirilchuk.jawelet.util;
 
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
 import org.junit.After;
@@ -46,13 +46,22 @@ public class ExtensionerTest {
                 double[] filter = {2, 8, 4, -1};
                 return filter;
             }
+
+            @Override
+            public int getLength() {
+                return 4;
+            }
         };
 
-        double[] result = new Extensioner().extend(data, filter);
-
-        assertEquals(data.length + filter.getCoeff().length, result.length);
-
+        double[] result = new Extensioner().extend(data, filter);        
         double[] expected = {1, 2, 3, 4, 1, 2, 3, 4};
+        assertEquals(expected.length, result.length);
+        assertArrayEquals(expected, result, 0);
+
+        data = new double[]{1, 2, 3};
+        result = new Extensioner().extend(data, filter);
+        expected = new double[]{1, 2, 3, 0, 1, 2, 3, 0};
+        assertEquals(expected.length, result.length);
         assertArrayEquals(expected, result, 0);
     }
 
@@ -69,6 +78,11 @@ public class ExtensionerTest {
                 double[] filter = {2, 8};
                 return filter;
             }
+
+            @Override
+            public int getLength() {
+                return 2;
+            }
         };
 
         Extensioner extensioner = new Extensioner();
@@ -81,6 +95,7 @@ public class ExtensionerTest {
         assertArrayEquals(expected, result, 0);
     }
 
+
     @Test(expected = IllegalArgumentException.class)
     public void testDataCantBeNull() {
         double[] data = null;
@@ -90,6 +105,11 @@ public class ExtensionerTest {
             public double[] getCoeff() {
                 double[] filter = {2, 8, 4, -1};
                 return filter;
+            }
+
+            @Override
+            public int getLength() {
+                return 4;
             }
         };
         new Extensioner().extend(data, filter);
