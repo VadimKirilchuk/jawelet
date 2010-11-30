@@ -15,7 +15,8 @@ public class HaarLowDecompFilter implements Filter {
         return COEFFICIENTS;
     }
 
-    public static void main(String[] args) {
-        System.out.println(COEFFICIENTS[0]);
+    @Override
+    public int getLength() {
+        return COEFFICIENTS.length;
     }
 }

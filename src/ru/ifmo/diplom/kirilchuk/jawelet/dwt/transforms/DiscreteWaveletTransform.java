@@ -1,7 +1,7 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms;
 
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.DecompositionResult;
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.FiltersFactory;
+import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.AbstractFiltersFactory;
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.strategies.impl.StrategiesFactory;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
@@ -13,21 +13,27 @@ import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
  * @author Kirilchuk V.E.
  */
 public abstract class DiscreteWaveletTransform {
-    //TODO must be outside class and give strategy in parameter.
-    private static final StrategiesFactory strategiesFactory = new StrategiesFactory();//TODO must not be here
-    private final FiltersFactory filtersFactory;
-    private final TransformStrategy strategy;
+    private final AbstractFiltersFactory filtersFactory;
+    private DWTransformStrategy strategy;
+    private boolean strategyChoosen = false;
 
     /**
      * Constructs discrete wavelet transform with specified filters factory.
      *
      * @param filtersFactory factory of filters.
      */
-    public DiscreteWaveletTransform(FiltersFactory filtersFactory) {
+    public DiscreteWaveletTransform(AbstractFiltersFactory filtersFactory) {
         Assert.argNotNull(filtersFactory);
 
         this.filtersFactory = filtersFactory;
-        this.strategy = strategiesFactory.getDefaultStrategy();
+        this.strategy = StrategiesFactory.getByName("default");
+    }
+
+    public void setTransformStrategy(DWTransformStrategy strategy) {
+        if(strategyChoosen) {
+            throw new IllegalStateException("You can`t change strategy after first use.");
+        }
+        this.strategy = strategy;
     }
 
     /**
@@ -43,7 +49,8 @@ public abstract class DiscreteWaveletTransform {
         Assert.argCondition(data.length >= 2, "Data length must be >= 2.");
 
         int level = MathUtils.getExact2Power(data.length);
-        
+
+        strategyChoosen = true;
         return decompose(data, level);
     }
 
@@ -76,24 +83,25 @@ public abstract class DiscreteWaveletTransform {
             }
         }
 
+        strategyChoosen = true;
         return result;
     }
 
-    public double[] decomposeLow(double[] data) {
+    private double[] decomposeLow(double[] data) {
         return strategy.decomposeLow(data, filtersFactory.getLowDecompositionFilter());
     }
 
-    public double[] decomposeHigh(double[] data) {
+    private double[] decomposeHigh(double[] data) {
         return strategy.decomposeHigh(data, filtersFactory.getHighDecompositionFilter());
     }
 
-    public double[] reconstruct(double[] approximation, double[] details) {
+    private double[] reconstruct(double[] approximation, double[] details) {
         return strategy.reconstruct(approximation, details,
                                     filtersFactory.getLowReconstructionFilter(),
                                     filtersFactory.getHighReconstructionFilter());
     }
 
-    public FiltersFactory getFiltersFactory() {
+    public AbstractFiltersFactory getFiltersFactory() {
         return filtersFactory;
     }
 }

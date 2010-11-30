@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
+import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.haar.impl.HaarFiltersFactory;
 
 /**
  *
@@ -48,6 +49,11 @@ public class CyclicWrappingTransformStrategyTest {
             public double[] getCoeff() {
                 return new double[]{1, 1};
             }
+
+            @Override
+            public int getLength() {
+                return 2;
+            }
         };
         double[] expResult = {55.5, 99.9, 77.7};
         decomposeLowWithAssert(data, lowDecompositionFilter, expResult);
@@ -58,14 +64,20 @@ public class CyclicWrappingTransformStrategyTest {
             public double[] getCoeff() {
                 return new double[]{15.54, 18.2};
             }
+
+            @Override
+            public int getLength() {
+                return 2;
+            }
         };
         expResult = new double[]{921.521999999999, 1670.549999999999, 1384.613999999999};
         decomposeLowWithAssert(data, lowDecompositionFilter, expResult);
     }
 
-    private void decomposeLowWithAssert(double[] data, Filter filter, double[] expect) {
+    private double[] decomposeLowWithAssert(double[] data, Filter filter, double[] expect) {
         double[] result = instance.decomposeLow(data, filter);
         assertArrayEquals(expect, result, DOBLE_COMPARISON_DELTA);
+        return result;
     }
 
     /**
@@ -74,22 +86,28 @@ public class CyclicWrappingTransformStrategyTest {
     @Test
     public void testDecomposeHigh() {
         System.out.println("Test decomposeHigh");
-        double[] data = {46.2000, 565.8000, 12.1200, 163.5670, 123.1230, 90.8700, 18.3400};
+        double[] data = {46.2000, 565.8000, 12.1200, 163.5670, 123.1230, 90.8700, 18.3400, 1};
         Filter highDecompositionFilter = new Filter() {
 
             @Override
             public double[] getCoeff() {
                 return new double[]{1.12, 1.21, 2.123, 12.2, 14.1, 7.8, 4.7};
             }
+
+            @Override
+            public int getLength() {
+                return 7;
+            }
         };
-        double[] expResult = {9170.207970999999, 6777.299709999999, 3234.139300000000};
+        double[] expResult = {8009.72259, 7188.673029, 4216.37072,1546.0581};
 
         decomposeHighWithAssert(data, highDecompositionFilter, expResult);
     }
 
-    private void decomposeHighWithAssert(double[] data, Filter filter, double[] expect) {
+    private double[] decomposeHighWithAssert(double[] data, Filter filter, double[] expect) {
         double[] result = instance.decomposeHigh(data, filter);
         assertArrayEquals(expect, result, DOBLE_COMPARISON_DELTA);
+        return result;
     }
 
     /**
@@ -107,12 +125,22 @@ public class CyclicWrappingTransformStrategyTest {
             public double[] getCoeff() {
                 return new double[]{1, 1};
             }
+
+            @Override
+            public int getLength() {
+                return 2;
+            }
         };
         Filter highReconstructionFilter = new Filter() {
 
             @Override
             public double[] getCoeff() {
                 return new double[]{1, -1};
+            }
+
+            @Override
+            public int getLength() {
+                return 2;
             }
         };
 
@@ -133,5 +161,33 @@ public class CyclicWrappingTransformStrategyTest {
 
         result = instance.reconstruct(approximation, details, lowReconstructionFilter, highReconstructionFilter);
         assertArrayEquals(expResult, result, DOBLE_COMPARISON_DELTA);
+    }
+
+    @Test
+    public void testDecomposeReconstructForHaarFilters() {
+        HaarFiltersFactory factory = new HaarFiltersFactory();
+        double[] data = {20,10,15,12,14,18,40,32,14,14};
+        Filter lowDec  = factory.getLowDecompositionFilter();
+        Filter highDec = factory.getHighDecompositionFilter();
+
+        double[] lowExpect = {17.6776695296636, 18.38477631085, 41.01219330881975,
+                              32.52691193458118, 24.04163056034261};
+        double[] low = decomposeLowWithAssert(data, lowDec, lowExpect);
+
+        double[] highExpect = {-3.535533905932737, -1.41421356237309, -15.55634918610404,
+                               12.72792206135785, -4.242640687119268};
+        double[] high = decomposeLowWithAssert(data, highDec, highExpect);
+
+        Filter lowRec = factory.getLowReconstructionFilter();
+        Filter highRec = factory.getHighReconstructionFilter();
+        double[] recon = instance.reconstruct(low, high, lowRec, highRec);
+        assertArrayEquals(data, recon, DOBLE_COMPARISON_DELTA);
+
+        data = new double[]{23.25, 12.23, 56.124, 76.34, 642.12, 4.1, 87.9};
+        lowExpect = new double[]{48.3336, 508.0279, 65.0538, 16.4402};
+        highExpect = new double[]{-31.0377, -400.0669, -59.2555, -16.4402};
+
+        low = decomposeLowWithAssert(data, lowDec, lowExpect);
+        high = decomposeLowWithAssert(data, highDec, highExpect);
     }
 }

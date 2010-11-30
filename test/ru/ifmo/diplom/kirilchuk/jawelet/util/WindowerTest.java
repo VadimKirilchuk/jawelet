@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package ru.ifmo.diplom.kirilchuk.jawelet.dwt;
+package ru.ifmo.diplom.kirilchuk.jawelet.util;
 
 import org.junit.After;
 import org.junit.AfterClass;

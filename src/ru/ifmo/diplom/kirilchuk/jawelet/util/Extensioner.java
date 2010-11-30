@@ -1,4 +1,4 @@
-package ru.ifmo.diplom.kirilchuk.jawelet.dwt;
+package ru.ifmo.diplom.kirilchuk.jawelet.util;
 
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
 
@@ -24,8 +24,9 @@ public class Extensioner {
             case BEGINNING: {
                 return extendBeginning(data, filter);
             }
-            default:
+            default: {
                 throw new UnsupportedOperationException("Unknown mode.");
+            }
         }
     }
 
@@ -50,9 +51,14 @@ public class Extensioner {
         int dataLength = data.length;
         int filterLength = filter.getCoeff().length;
 
-        double[] result = new double[dataLength + filterLength];
+        int extra = 0;
+        if(data.length % 2 != 0) {
+            extra = 1;
+        }
+
+        double[] result = new double[dataLength + filterLength + extra];
         System.arraycopy(data, 0, result, 0, dataLength);
-        System.arraycopy(data, 0, result, dataLength, filterLength);
+        System.arraycopy(result, 0, result, dataLength + extra, filterLength);
 
         return result;
     }

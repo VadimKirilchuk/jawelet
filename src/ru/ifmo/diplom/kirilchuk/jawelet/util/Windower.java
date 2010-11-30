@@ -1,4 +1,4 @@
-package ru.ifmo.diplom.kirilchuk.jawelet.dwt;
+package ru.ifmo.diplom.kirilchuk.jawelet.util;
 
 /**
  *

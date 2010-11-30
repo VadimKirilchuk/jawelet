@@ -16,4 +16,6 @@ public interface Filter {
      * @return coefficients of filter.
      */
     double[] getCoeff();
+
+    int getLength();
 }
