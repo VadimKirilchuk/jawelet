@@ -13,7 +13,7 @@ public class StrategiesFactory {
     private static final DWTransformStrategy CYCLIC_WRAPPING_STRATEGY = new CyclicWrappingTransformStrategy();
 
     private static final Map<String, DWTransformStrategy> strategies = new HashMap<String, DWTransformStrategy>();
-    {
+    static {
         strategies.put("default", CYCLIC_WRAPPING_STRATEGY);
         strategies.put("cyclicWrapping", CYCLIC_WRAPPING_STRATEGY);
     }
