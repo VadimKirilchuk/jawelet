@@ -15,7 +15,6 @@ import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
 public abstract class DiscreteWaveletTransform {
     private final AbstractFiltersFactory filtersFactory;
     private DWTransformStrategy strategy;
-    private boolean strategyChoosen = false;
 
     /**
      * Constructs discrete wavelet transform with specified filters factory.
@@ -30,9 +29,6 @@ public abstract class DiscreteWaveletTransform {
     }
 
     public void setTransformStrategy(DWTransformStrategy strategy) {
-        if(strategyChoosen) {
-            throw new IllegalStateException("You can`t change strategy after first use.");
-        }
         this.strategy = strategy;
     }
 
@@ -50,7 +46,6 @@ public abstract class DiscreteWaveletTransform {
 
         int level = MathUtils.getExact2Power(data.length);
 
-        strategyChoosen = true;
         return decompose(data, level);
     }
 
@@ -67,7 +62,7 @@ public abstract class DiscreteWaveletTransform {
         Assert.argNotNull(data);
         Assert.valueIs2Power(data.length, "Input data");
         Assert.argCondition(data.length >= 2, "Data length must be >= 2.");
-        Assert.argCondition(level > 1, "Level argument must be >= 1.");
+        Assert.argCondition(level >= 1, "Level argument must be >= 1.");
 
         DecompositionResult result = new DecompositionResult();
         double[] approximation;
@@ -83,8 +78,24 @@ public abstract class DiscreteWaveletTransform {
             }
         }
 
-        strategyChoosen = true;
         return result;
+    }
+    
+    public double[] reconstruct(DecompositionResult decomposition) {
+        return reconstruct(decomposition, 0);
+    }
+
+    public double[] reconstruct(DecompositionResult decomposition, int level) {
+        if(level >= decomposition.getLevel()) {
+            throw new IllegalArgumentException("Level must be less than decomposition level.");
+        }
+
+        double[] reconstructed = decomposition.getApproximation();
+        for(int i = decomposition.getLevel(); i > level; --i) {
+            reconstructed = reconstruct(reconstructed, decomposition.getDetailsList().get(i-1));
+        }
+
+        return reconstructed;
     }
 
     private double[] decomposeLow(double[] data) {

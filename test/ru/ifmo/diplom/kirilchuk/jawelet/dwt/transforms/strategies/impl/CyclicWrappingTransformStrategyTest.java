@@ -184,8 +184,8 @@ public class CyclicWrappingTransformStrategyTest {
         assertArrayEquals(data, recon, DOBLE_COMPARISON_DELTA);
 
         data = new double[]{23.25, 12.23, 56.124, 76.34, 642.12, 4.1, 87.9};
-        lowExpect = new double[]{48.3336, 508.0279, 65.0538, 16.4402};
-        highExpect = new double[]{-31.0377, -400.0669, -59.2555, -16.4402};
+        lowExpect = new double[]{48.333576921225, 508.027938011286, 65.053823869162, 16.440232662587};
+        highExpect = new double[]{-31.037745053402, -400.066874659724, -59.255548263432, -16.440232662587};
 
         low = decomposeLowWithAssert(data, lowDec, lowExpect);
         high = decomposeLowWithAssert(data, highDec, highExpect);
