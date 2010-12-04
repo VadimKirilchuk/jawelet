@@ -21,7 +21,17 @@ public class CyclicEndExtension implements Action {
 
     @Override
     public int execute(double[] data, int currentLength) {
-        System.arraycopy(data, 0, data, currentLength, length);
+        if (length <= currentLength) {
+            System.arraycopy(data, 0, data, currentLength, length);
+        } else {
+            int wholeNum = length / currentLength;
+            int pointer = currentLength;
+            for (int i = 0; i < wholeNum; ++i) {//copy whole parts
+                System.arraycopy(data, 0, data, pointer, currentLength);
+                pointer += currentLength;
+            }
+            System.arraycopy(data, 0, data, pointer, length - (wholeNum * currentLength));
+        }
 
         return currentLength + length;
     }

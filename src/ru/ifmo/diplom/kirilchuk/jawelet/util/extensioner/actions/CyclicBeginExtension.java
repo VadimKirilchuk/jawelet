@@ -25,7 +25,20 @@ public class CyclicBeginExtension implements Action {
         System.arraycopy(data, 0, data, length, currentLength);
 
         //filleng beginning
-        System.arraycopy(data, currentLength, data, 0, length);
+        if (length <= currentLength) {
+            System.arraycopy(data, currentLength, data, 0, length);
+        } else {
+            int wholeNum = length / currentLength;
+            //copy not whole part first
+            int partLen = length - wholeNum * currentLength;
+            System.arraycopy(data, length + currentLength - partLen, data, 0, partLen);
+            //copy whole parts
+            int pointer = partLen;
+            for (int i = 0; i < wholeNum; ++i) {
+                System.arraycopy(data, length, data, pointer, currentLength);
+                pointer += currentLength;
+            }
+        }
 
         return currentLength + length;
     }

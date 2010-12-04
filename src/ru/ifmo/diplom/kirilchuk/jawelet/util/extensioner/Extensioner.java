@@ -2,7 +2,6 @@ package ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner;
 
 import java.util.ArrayList;
 import java.util.List;
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
 
 /**
  * Instance of this class corresponding for extending 
