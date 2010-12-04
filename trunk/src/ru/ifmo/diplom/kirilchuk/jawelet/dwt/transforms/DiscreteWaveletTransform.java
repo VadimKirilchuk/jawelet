@@ -76,6 +76,7 @@ public abstract class DiscreteWaveletTransform {
             if(approximation.length == 1) {
                 break; //we can`t decompose more...
             }
+            data = approximation; //approximation is data for next decomposition
         }
 
         return result;
