@@ -1,6 +1,5 @@
-package ru.ifmo.diplom.kirilchuk.jawelet.util;
+package ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner;
 
-import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.Extensioner;
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -8,6 +7,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.AbstractFiltersFactory;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.CyclicBeginExtension;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.CyclicEndExtension;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.ZeroPaddingToEven;
@@ -58,7 +58,6 @@ public class ExtensionerTest {
             }
         };
 
-//        double[] result = new Extensioner().extend(data, filter);
         double[] result = new Extensioner(data)
                 .schedule(new CyclicEndExtension(filter.getLength()))
                 .execute();
@@ -107,6 +106,31 @@ public class ExtensionerTest {
         assertArrayEquals(expected, result, 0);
     }
 
+    @Test
+    public void testEndExtensionWhenFilterLongButDataSmall() {
+        double[] data = {1, 2};
+        Filter filter = AbstractFiltersFactory.createFilter(new double[]{1, 1, 1, 1, 1, 1, 1});
+
+        double[] result = new Extensioner(data)
+                .schedule(new CyclicEndExtension(filter.getLength()))
+                .execute();
+
+        double[] expected = {1, 2, 1, 2, 1, 2, 1, 2, 1};
+        assertArrayEquals(expected, result, 0);
+    }
+
+    @Test
+    public void testBeginExtensionWhenFilterLongButDataSmall() {
+        double[] data = {1, 2};
+        Filter filter = AbstractFiltersFactory.createFilter(new double[]{1, 1, 1, 1, 1, 1, 1});
+
+        double[] result = new Extensioner(data)
+                .schedule(new CyclicBeginExtension(filter.getLength()))
+                .execute();
+
+        double[] expected = {2, 1, 2, 1, 2, 1, 2, 1, 2};
+        assertArrayEquals(expected, result, 0);
+    }
 
     @Ignore
     @Test(expected = IllegalArgumentException.class)
