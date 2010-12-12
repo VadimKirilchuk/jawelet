@@ -5,6 +5,8 @@ import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.AbstractFiltersFactory;
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.strategies.impl.StrategiesFactory;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
+import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.Extensioner;
+import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.ZeroPaddingTo2Power;
 
 /**
  * Abstract class that corresponds for providing basic implementation
@@ -13,7 +15,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
  * @author Kirilchuk V.E.
  */
 public abstract class DiscreteWaveletTransform {
-    private final AbstractFiltersFactory filtersFactory;
+    protected final AbstractFiltersFactory filtersFactory;
     private DWTransformStrategy strategy;
 
     /**
@@ -33,18 +35,28 @@ public abstract class DiscreteWaveletTransform {
     }
 
     /**
-     * Performs dwt decomposition to maximal level.
+     * Performs dwt decomposition to maximal level. It means that
+     * data length would be extended(if need) to closest 2^N
+     * and decomposition result will have approximation vector with
+     * size=1 and list with N detail vectors.
      *
      * @param data input vector to decompose.
-     * @param level level to which decompose.
      * @return result of decomposition.
      */
     public DecompositionResult decompose(double[] data) {
         Assert.argNotNull(data);
-        Assert.valueIs2Power(data.length, "Input data");
         Assert.argCondition(data.length >= 2, "Data length must be >= 2.");
 
-        int level = MathUtils.getExact2Power(data.length);
+        //finding closest 2nd power value
+        int value = MathUtils.getClosest2PowerValue(data.length);
+        int level = MathUtils.getExact2Power(value);
+
+        //extending if need
+        if(data.length - value < 0) {
+            data = new Extensioner(data)
+                    .schedule(new ZeroPaddingTo2Power(level))
+                    .execute();
+        }
 
         return decompose(data, level);
     }
@@ -58,11 +70,10 @@ public abstract class DiscreteWaveletTransform {
      * @param level level to which decompose.
      * @return result of decomposition.
      */
-    public DecompositionResult decompose(double[] data, int level) {
+    public DecompositionResult decompose(double[] data, int level) {//TODO check can we have approximation of size 3?
         Assert.argNotNull(data);
-        Assert.valueIs2Power(data.length, "Input data");
-        Assert.argCondition(data.length >= 2, "Data length must be >= 2.");
         Assert.argCondition(level >= 1, "Level argument must be >= 1.");
+        Assert.argCondition(data.length >= 2, "Data length must be >= 2.");
 
         DecompositionResult result = new DecompositionResult();
         double[] approximation;

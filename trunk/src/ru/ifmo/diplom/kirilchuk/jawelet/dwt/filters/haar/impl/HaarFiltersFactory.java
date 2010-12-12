@@ -17,6 +17,6 @@ public class HaarFiltersFactory extends AbstractFiltersFactory {
 
     public HaarFiltersFactory() {
         super(LOW_DECOMPOSITION_FILTER, HI_DECOMPOSITION_FILTER,
-              LOW_DECOMPOSITION_FILTER, HI_RECONSTRUCTION_FILTER);
+              LOW_RECONSTRUCTION_FILTER, HI_RECONSTRUCTION_FILTER);
     }
 }
