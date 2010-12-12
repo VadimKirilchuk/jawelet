@@ -41,7 +41,6 @@ public class CyclicWrappingTransformStrategyTest {
      */
     @Test
     public void testDecomposeLowWithFilterLength2() {
-        System.out.println("Test decomposeLow with filter length2");
         double[] data = {11.1, 22.2, 33.3, 44.4, 55.5, 66.6};
         Filter lowDecompositionFilter = new Filter() {
 
@@ -85,7 +84,6 @@ public class CyclicWrappingTransformStrategyTest {
      */
     @Test
     public void testDecomposeHigh() {
-        System.out.println("Test decomposeHigh");
         double[] data = {46.2000, 565.8000, 12.1200, 163.5670, 123.1230, 90.8700, 18.3400, 1};
         Filter highDecompositionFilter = new Filter() {
 
@@ -115,7 +113,6 @@ public class CyclicWrappingTransformStrategyTest {
      */
     @Test
     public void testReconstructEvenVectorWithFilterLength2() {
-        System.out.println("reconstruct");
         double[] approximation = {5, 9, 7};
         double[] details = {-1, -1, 5};
 

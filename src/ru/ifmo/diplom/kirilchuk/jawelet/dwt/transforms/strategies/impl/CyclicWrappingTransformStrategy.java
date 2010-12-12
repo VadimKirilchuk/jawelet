@@ -5,6 +5,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.util.Sampler;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.Windower;
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.DWTransformStrategy;
+import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.Action;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.CyclicBeginExtension;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.CyclicEndExtension;
@@ -29,7 +30,7 @@ public class CyclicWrappingTransformStrategy implements DWTransformStrategy {
                 .schedule(zeroPaddingToEven)
                 .schedule(new CyclicEndExtension(lowDecompositionFilter.getLength()))
                 .execute();
-        result = convolve(result, lowDecompositionFilter);
+        result = MathUtils.convolve(result, lowDecompositionFilter.getCoeff());
         result = sampler.downsample(result);
 
         int filterLength = lowDecompositionFilter.getCoeff().length;
@@ -49,7 +50,7 @@ public class CyclicWrappingTransformStrategy implements DWTransformStrategy {
                 .schedule(new CyclicEndExtension(highDecompositionFilter.getLength()))
                 .execute();
 
-        result = convolve(result, highDecompositionFilter);
+        result = MathUtils.convolve(result, highDecompositionFilter.getCoeff());
         result = sampler.downsample(result);
 
         int filterLength = highDecompositionFilter.getCoeff().length;
@@ -70,7 +71,7 @@ public class CyclicWrappingTransformStrategy implements DWTransformStrategy {
                 .execute();
 
         extendedApproximation = sampler.upsample(extendedApproximation);
-        extendedApproximation = convolve(extendedApproximation, lowReconstructionFilter);
+        extendedApproximation = MathUtils.convolve(extendedApproximation, lowReconstructionFilter.getCoeff());
 
         double[] extendedDetails;
         extendedDetails = new Extensioner(details)
@@ -78,7 +79,7 @@ public class CyclicWrappingTransformStrategy implements DWTransformStrategy {
                 .execute();
 
         extendedDetails = sampler.upsample(extendedDetails);
-        extendedDetails = convolve(extendedDetails, highReconstructionFilter);
+        extendedDetails = MathUtils.convolve(extendedDetails, highReconstructionFilter.getCoeff());
 
         double[] result = new double[extendedApproximation.length];
         for (int i = 0; i < result.length; i++) {
@@ -88,22 +89,6 @@ public class CyclicWrappingTransformStrategy implements DWTransformStrategy {
         int filterLength = lowReconstructionFilter.getCoeff().length;
 
         result = windower.window(result, filterLength + 1, details.length * 2 + filterLength + 1);
-
-        return result;
-    }
-
-    private double[] convolve(double[] data, Filter filter) {//TODO rename short-named variables
-        int m = data.length;
-        double[] filterCoeff = filter.getCoeff();
-        int n = filterCoeff.length;
-
-        double[] result = new double[m + n - 1];
-
-        for (int i = 0; i < result.length; ++i) {
-            for (int j = Math.max(0, i + 1 - n); j <= Math.min(i, m - 1); ++j) {
-                result[i] += (data[j] * filterCoeff[i - j]);
-            }
-        }
 
         return result;
     }

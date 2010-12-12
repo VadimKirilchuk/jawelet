@@ -11,6 +11,7 @@ import org.junit.Test;
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.DecompositionResult;
 import static org.junit.Assert.*;
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.haar.impl.HaarWaveletTransform;
+import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.legall.impl.LeGallWaveletTransform;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
 
 /**
@@ -95,7 +96,7 @@ public class DiscreteWaveletTransformTest {
     public void testRandomFullDecomposeReconstructionWithHaar() {
         Random rnd = new Random();
         int length = rnd.nextInt(1000) + 1000; //data with 1000..1999 elements
-        int extendedLength = MathUtils.getClosest2PowerLength(length);
+        int extendedLength = MathUtils.getClosest2PowerValue(length);
         int power = MathUtils.getExact2Power(extendedLength);
         
         double[] data = new double[extendedLength];
@@ -111,38 +112,40 @@ public class DiscreteWaveletTransformTest {
 
         double[] reconstructed = instance.reconstruct(result);
 
-        String debug= "Data:\n" + Arrays.toString(data) + "\n"
-                + "Reconstruction:\n" + Arrays.toString(reconstructed);
-        System.out.println(debug);
-
         assertArrayEquals(data, reconstructed, 1);
     }
 
-//    @Ignore
-//    @Test
-//    public void testRandomFullDecomposeReconstructionWithLeGall() {
-//        Random rnd = new Random();
-//        int length = rnd.nextInt(1000) + 1000; //data with 1000..1999 elements
-//        int extendedLength = MathUtils.getClosest2PowerLength(length);
-//        int power = MathUtils.getExact2Power(extendedLength);
-//
-//        double[] data = new double[extendedLength];
-//        for (int i = 0; i < data.length; i++) {
-//            data[i] = rnd.nextInt(Integer.MAX_VALUE);
-//        }
-//
-//        DiscreteWaveletTransform instance = new HaarWaveletTransform();
-//
-//        DecompositionResult result = instance.decompose(data);
-//        assertEquals(power, result.getLevel());
-//        assertEquals(1, result.getApproximation().length);
-//
-//        double[] reconstructed = instance.reconstruct(result);
-//
-//        String debug= "Data:\n" + Arrays.toString(data) + "\n"
-//                + "Reconstruction:\n" + Arrays.toString(reconstructed);
-//        System.out.println(debug);
-//
-//        assertArrayEquals(data, reconstructed, 1);
-//    }
+    @Test
+    public void testReconstructionFrom1LevelWithLeGall() {
+        double[] data = {1,2,3,4};
+
+        DiscreteWaveletTransform instance = new LeGallWaveletTransform();
+        DecompositionResult result = instance.decompose(data, 1);
+
+        double[] reconstructed = instance.reconstruct(result);
+        assertArrayEquals(data, reconstructed, DOBLE_COMPARISON_DELTA);
+    }
+
+    @Test
+    public void testRandomFullDecomposeReconstructionWithLeGall() {
+        Random rnd = new Random();
+        int length = rnd.nextInt(1000) + 1000; //data with 1000..1999 elements
+        int extendedLength = MathUtils.getClosest2PowerValue(length);
+        int power = MathUtils.getExact2Power(extendedLength);
+
+        double[] data = new double[extendedLength];
+        for (int i = 0; i < data.length; i++) {
+            data[i] = rnd.nextInt(Integer.MAX_VALUE);
+        }
+
+        DiscreteWaveletTransform instance = new LeGallWaveletTransform();
+
+        DecompositionResult result = instance.decompose(data, power - 1);
+        assertEquals(power - 1, result.getLevel());
+        assertEquals(2, result.getApproximation().length);
+
+        double[] reconstructed = instance.reconstruct(result);
+
+        assertArrayEquals(data, reconstructed, 1);
+    }
 }
