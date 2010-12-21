@@ -8,6 +8,10 @@ import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
  */
 public interface DWTransformStrategy {
 
+    void inplaceDecompose(double[] input, Filter lowDecompositionFilter, Filter highDecompositionFilter);
+
+    void reconstruct(double[] input, Filter lowReconstructionFilter, Filter highReconstructionFilter);
+
     double[] decomposeLow(double[] data, Filter lowDecompositionFilter);
 
     double[] decomposeHigh(double[] data,Filter highDecompositionFilter);
