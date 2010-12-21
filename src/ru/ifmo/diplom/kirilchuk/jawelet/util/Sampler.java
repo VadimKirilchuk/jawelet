@@ -1,7 +1,5 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.util;
 
-import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
-
 /**
  * Instances of this class correspond for down-sampling  and up-sampling
  * data sequences.

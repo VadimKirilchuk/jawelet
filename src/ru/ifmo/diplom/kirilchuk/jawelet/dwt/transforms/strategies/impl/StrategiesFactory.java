@@ -5,7 +5,7 @@ import java.util.Map;
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.DWTransformStrategy;
 
 /**
- *
+ * @deprecated only one strategy that not works with asymmetric filters.
  * @author Kirilchuk V.E.
  */
 public class StrategiesFactory {

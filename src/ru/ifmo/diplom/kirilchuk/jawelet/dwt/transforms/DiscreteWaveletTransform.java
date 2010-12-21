@@ -10,7 +10,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.ZeroPaddingTo2P
 
 /**
  * Abstract class that corresponds for providing basic implementation
- * of decomposition and reconstruction of discrete wavelet transform.
+ * of decomposition and reconstruction for discrete wavelet transform.
  *
  * @author Kirilchuk V.E.
  */
@@ -42,6 +42,7 @@ public abstract class DiscreteWaveletTransform {
      *
      * @param data input vector to decompose.
      * @return result of decomposition.
+     * @deprecated
      */
     public DecompositionResult decompose(double[] data) {
         Assert.argNotNull(data);
@@ -69,6 +70,7 @@ public abstract class DiscreteWaveletTransform {
      * @param data input vector to decompose.
      * @param level level to which decompose.
      * @return result of decomposition.
+     * @deprecated
      */
     public DecompositionResult decompose(double[] data, int level) {//TODO check can we have approximation of size 3?
         Assert.argNotNull(data);
@@ -92,11 +94,22 @@ public abstract class DiscreteWaveletTransform {
 
         return result;
     }
-    
+
+    /**
+     * @deprecated
+     * @param decomposition
+     * @return
+     */
     public double[] reconstruct(DecompositionResult decomposition) {
         return reconstruct(decomposition, 0);
     }
 
+    /**
+     * @deprecated
+     * @param decomposition
+     * @param level
+     * @return
+     */
     public double[] reconstruct(DecompositionResult decomposition, int level) {
         if(level >= decomposition.getLevel()) {
             throw new IllegalArgumentException("Level must be less than decomposition level.");
@@ -110,21 +123,46 @@ public abstract class DiscreteWaveletTransform {
         return reconstructed;
     }
 
+    /**
+     * Decomposes input vector to specified level using {@link DiscreteWaveletTransform#strategy}
+     * Decomposition result is stored in input vector.
+     * <p> Approximation data is stored in left sides, details data - in right sides.
+     *
+     * @param input data vector.
+     * @param level level on which to decompose.
+     */
+    public void decomposeInplace(double[] input, int level) {
+        throw new UnsupportedOperationException("Unsupported operation"); //TODO
+    }
+
+    /**
+     * Reconstructs data from given vector with approximations and details, using
+     * {@link DiscreteWaveletTransform#strategy}.
+     * Reconstruction result is stored in input vector.
+     * <p> Assumes that approximation data is on left sides, and details data is on
+     * the right sides of input vector.
+     *
+     * @param input data vector.
+     * @param approximationSize size of last approximation data.
+     */
+    public void reconstructInplace(double[] input, int approximationSize) {
+        throw new UnsupportedOperationException("Unsupported operation"); //TODO
+    }
+
+    @Deprecated
     private double[] decomposeLow(double[] data) {
         return strategy.decomposeLow(data, filtersFactory.getLowDecompositionFilter());
     }
 
+    @Deprecated
     private double[] decomposeHigh(double[] data) {
         return strategy.decomposeHigh(data, filtersFactory.getHighDecompositionFilter());
     }
 
+    @Deprecated
     private double[] reconstruct(double[] approximation, double[] details) {
         return strategy.reconstruct(approximation, details,
                                     filtersFactory.getLowReconstructionFilter(),
                                     filtersFactory.getHighReconstructionFilter());
-    }
-
-    public AbstractFiltersFactory getFiltersFactory() {
-        return filtersFactory;
     }
 }

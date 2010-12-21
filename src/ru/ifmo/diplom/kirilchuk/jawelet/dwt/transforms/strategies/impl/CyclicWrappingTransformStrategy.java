@@ -12,7 +12,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.CyclicEndExtens
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.ZeroPaddingToEven;
 
 /**
- *
+ * @deprecated not works with asymmetric filters.
  * @author Kirilchuk V.E.
  */
 public class CyclicWrappingTransformStrategy implements DWTransformStrategy {
@@ -91,5 +91,15 @@ public class CyclicWrappingTransformStrategy implements DWTransformStrategy {
         result = windower.window(result, filterLength + 1, details.length * 2 + filterLength + 1);
 
         return result;
+    }
+
+    @Override
+    public void inplaceDecompose(double[] input, Filter lowDecompositionFilter, Filter highDecompositionFilter) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void reconstruct(double[] input, Filter lowReconstructionFilter, Filter highReconstructionFilter) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -4,7 +4,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.AbstractFiltersFactory;
 
 /**
- * Concrete factory for Haar discrete wavelet transform.
+ * LeGall(CDF 5/3) filters factory.
  * 
  * @author Kirilchuk V.E.
  */
