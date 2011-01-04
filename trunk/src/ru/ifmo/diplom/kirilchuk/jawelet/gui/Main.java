@@ -1,12 +1,18 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.gui;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
+
+import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.DWTransform2D;
+import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.legall.impl.LeGallWaveletTransform;
 import ru.ifmo.diplom.kirilchuk.jawelet.gui.util.ImageUtils;
 import ru.ifmo.diplom.kirilchuk.jawelet.gui.util.SwingUtils;
+import ru.ifmo.diplom.kirilchuk.jawelet.util.ArrayUtils;
 
 /**
  *
@@ -23,7 +29,14 @@ public class Main {
                 try {
                     JFileChooser fileChooser = new JFileChooser();
                     fileChooser.showOpenDialog(gui);
-                    BufferedImage image = ImageUtils.loadImage(fileChooser.getSelectedFile());
+                    
+                    File file = fileChooser.getSelectedFile();
+                    if (file == null) {
+                    	SwingUtils.showError(gui, "You didn`t select any file.", true);
+                    	gui.dispose();
+                    }
+                    
+                    BufferedImage image = ImageUtils.loadImage(file);
                     if (image == null) {
                         SwingUtils.showError(gui, "Image load failed.", true);
                         gui.dispose();
@@ -31,9 +44,18 @@ public class Main {
                         SwingUtils.showError(gui, "Image must be grayscale.", true);
                         gui.dispose();
                     } else {
-                        print2DArray(ImageUtils.getGrayscaleImageData(image));
+                    	int[][] imageData = ImageUtils.getGrayscaleImageData(image);
+                        gui.setImage(image);
+                        
+                        SwingUtils.showError(gui, "After you click OK would be magic.", false);
+                        double[][] data = ArrayUtils.convert(imageData);
+                        DWTransform2D transform = new DWTransform2D(new LeGallWaveletTransform());
+                        transform.decomposeInplace(data);
+                        imageData = ArrayUtils.convert(data);
+                        ImageUtils.setNewGrayscaleImageData(image, imageData);
                         gui.setImage(image);
                     }
+                    
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -41,9 +63,5 @@ public class Main {
         });
     }
 
-    private static void print2DArray(int[][] array) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.println(Arrays.toString(array[i]));
-        }
-    }
+
 }
