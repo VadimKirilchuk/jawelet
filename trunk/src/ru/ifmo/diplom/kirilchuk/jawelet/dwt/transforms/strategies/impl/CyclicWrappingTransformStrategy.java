@@ -94,12 +94,12 @@ public class CyclicWrappingTransformStrategy implements DWTransformStrategy {
     }
 
     @Override
-    public void inplaceDecompose(double[] input, Filter lowDecompositionFilter, Filter highDecompositionFilter) {
+    public void decomposeInplace(double[] input, Filter lowDecompositionFilter, Filter highDecompositionFilter) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void reconstruct(double[] input, Filter lowReconstructionFilter, Filter highReconstructionFilter) {
+    public void reconstructInplace(double[] input, Filter lowReconstructionFilter, Filter highReconstructionFilter) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

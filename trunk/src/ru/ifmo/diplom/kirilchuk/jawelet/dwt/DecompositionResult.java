@@ -7,11 +7,12 @@ import java.util.List;
 /**
  *
  * @author Kirilchuk V.E.
+ * @deprecated
  */
 public class DecompositionResult {
     private int level;
     private double[] approximation;
-    private List<double[]> details = new ArrayList<double[]>();//TODO mb stack?
+    private List<double[]> details = new ArrayList<double[]>();
 
     public double[] getApproximation() {
         return approximation;

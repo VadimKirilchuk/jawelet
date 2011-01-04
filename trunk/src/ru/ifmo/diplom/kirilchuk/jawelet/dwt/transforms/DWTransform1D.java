@@ -10,11 +10,12 @@ import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.ZeroPaddingTo2P
 
 /**
  * Abstract class that corresponds for providing basic implementation
- * of decomposition and reconstruction for discrete wavelet transform.
+ * of decomposition and reconstruction for one dimensional 
+ * discrete wavelet transform.
  *
  * @author Kirilchuk V.E.
  */
-public abstract class DiscreteWaveletTransform {
+public abstract class DWTransform1D {
     protected final AbstractFiltersFactory filtersFactory;
     private DWTransformStrategy strategy;
 
@@ -23,7 +24,7 @@ public abstract class DiscreteWaveletTransform {
      *
      * @param filtersFactory factory of filters.
      */
-    public DiscreteWaveletTransform(AbstractFiltersFactory filtersFactory) {
+    public DWTransform1D(AbstractFiltersFactory filtersFactory) {
         Assert.argNotNull(filtersFactory);
 
         this.filtersFactory = filtersFactory;
@@ -124,7 +125,7 @@ public abstract class DiscreteWaveletTransform {
     }
 
     /**
-     * Decomposes input vector to specified level using {@link DiscreteWaveletTransform#strategy}
+     * Decomposes input vector to specified level using {@link DWTransform1D#strategy}
      * Decomposition result is stored in input vector.
      * <p> Approximation data is stored in left sides, details data - in right sides.
      *
@@ -137,7 +138,7 @@ public abstract class DiscreteWaveletTransform {
 
     /**
      * Reconstructs data from given vector with approximations and details, using
-     * {@link DiscreteWaveletTransform#strategy}.
+     * {@link DWTransform1D#strategy}.
      * Reconstruction result is stored in input vector.
      * <p> Assumes that approximation data is on left sides, and details data is on
      * the right sides of input vector.

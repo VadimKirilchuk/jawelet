@@ -44,19 +44,7 @@ public class ExtensionerTest {
     @Test
     public void testExtendEnd() {
         double[] data = {1, 2, 3, 4};
-        Filter filter = new Filter() {
-
-            @Override
-            public double[] getCoeff() {
-                double[] filter = {2, 8, 4, -1};
-                return filter;
-            }
-
-            @Override
-            public int getLength() {
-                return 4;
-            }
-        };
+        Filter filter = new Filter(new double[]{2, 8, 4, -1});
 
         double[] result = new Extensioner(data)
                 .schedule(new CyclicEndExtension(filter.getLength()))
@@ -81,19 +69,7 @@ public class ExtensionerTest {
     @Test
     public void testExtendBeginning() {
         double[] data = {1, 2, 3, 4};
-        Filter filter = new Filter() {
-
-            @Override
-            public double[] getCoeff() {
-                double[] filter = {2, 8};
-                return filter;
-            }
-
-            @Override
-            public int getLength() {
-                return 2;
-            }
-        };
+        Filter filter = new Filter(new double[]{2, 8});
 
         double[] result = new Extensioner(data)
                 .schedule(new CyclicBeginExtension(filter.getLength()))
@@ -109,7 +85,7 @@ public class ExtensionerTest {
     @Test
     public void testEndExtensionWhenFilterLongButDataSmall() {
         double[] data = {1, 2};
-        Filter filter = AbstractFiltersFactory.createFilter(new double[]{1, 1, 1, 1, 1, 1, 1});
+        Filter filter = new Filter(new double[]{1, 1, 1, 1, 1, 1, 1});
 
         double[] result = new Extensioner(data)
                 .schedule(new CyclicEndExtension(filter.getLength()))
@@ -122,7 +98,7 @@ public class ExtensionerTest {
     @Test
     public void testBeginExtensionWhenFilterLongButDataSmall() {
         double[] data = {1, 2};
-        Filter filter = AbstractFiltersFactory.createFilter(new double[]{1, 1, 1, 1, 1, 1, 1});
+        Filter filter = new Filter(new double[]{1, 1, 1, 1, 1, 1, 1});
 
         double[] result = new Extensioner(data)
                 .schedule(new CyclicBeginExtension(filter.getLength()))
@@ -136,19 +112,7 @@ public class ExtensionerTest {
     @Test(expected = IllegalArgumentException.class)
     public void testDataCantBeNull() {
         double[] data = null;
-        Filter filter = new Filter() {
-
-            @Override
-            public double[] getCoeff() {
-                double[] filter = {2, 8, 4, -1};
-                return filter;
-            }
-
-            @Override
-            public int getLength() {
-                return 4;
-            }
-        };
+        Filter filter = new Filter(new double[]{2, 8, 4, -1});
 //        new Extensioner().extend(data, filter);
     }
 

@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.DiscreteWaveletTransform;
+import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.DWTransform1D;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
 
 /**
@@ -14,7 +14,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
  */
 public class LeGallWaveletTransformTest {
 
-    private DiscreteWaveletTransform transform;
+    private DWTransform1D transform;
 
     @Before
     public void setUp() {

@@ -2,7 +2,7 @@ package ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.legall.impl;
 
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.legall.impl.LeGallFiltersFactory;
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.DiscreteWaveletTransform;
+import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.DWTransform1D;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.Sampler;
@@ -13,11 +13,11 @@ import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.CopyElementToBe
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.MirrorExtension;
 
 /**
- * Class that represents DiscreteWaveletTransform on haar filter bank basis.
+ * Class that represents DiscreteWaveletTransform on Le Gall filter bank basis.
  * 
  * @author Kirilchuk V.E.
  */
-public class LeGallWaveletTransform extends DiscreteWaveletTransform {
+public class LeGallWaveletTransform extends DWTransform1D {
     private final Sampler     sampler     = new Sampler();
     private final Windower    windower    = new Windower();
 
