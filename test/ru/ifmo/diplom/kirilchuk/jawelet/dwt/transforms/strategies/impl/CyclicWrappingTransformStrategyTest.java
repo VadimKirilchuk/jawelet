@@ -42,33 +42,11 @@ public class CyclicWrappingTransformStrategyTest {
     @Test
     public void testDecomposeLowWithFilterLength2() {
         double[] data = {11.1, 22.2, 33.3, 44.4, 55.5, 66.6};
-        Filter lowDecompositionFilter = new Filter() {
-
-            @Override
-            public double[] getCoeff() {
-                return new double[]{1, 1};
-            }
-
-            @Override
-            public int getLength() {
-                return 2;
-            }
-        };
+        Filter lowDecompositionFilter = new Filter(new double[]{1, 1});
         double[] expResult = {55.5, 99.9, 77.7};
         decomposeLowWithAssert(data, lowDecompositionFilter, expResult);
 
-        lowDecompositionFilter = new Filter() {
-
-            @Override
-            public double[] getCoeff() {
-                return new double[]{15.54, 18.2};
-            }
-
-            @Override
-            public int getLength() {
-                return 2;
-            }
-        };
+        lowDecompositionFilter = new Filter(new double[]{15.54, 18.2});
         expResult = new double[]{921.521999999999, 1670.549999999999, 1384.613999999999};
         decomposeLowWithAssert(data, lowDecompositionFilter, expResult);
     }
@@ -85,18 +63,7 @@ public class CyclicWrappingTransformStrategyTest {
     @Test
     public void testDecomposeHigh() {
         double[] data = {46.2000, 565.8000, 12.1200, 163.5670, 123.1230, 90.8700, 18.3400, 1};
-        Filter highDecompositionFilter = new Filter() {
-
-            @Override
-            public double[] getCoeff() {
-                return new double[]{1.12, 1.21, 2.123, 12.2, 14.1, 7.8, 4.7};
-            }
-
-            @Override
-            public int getLength() {
-                return 7;
-            }
-        };
+        Filter highDecompositionFilter = new Filter(new double[]{1.12, 1.21, 2.123, 12.2, 14.1, 7.8, 4.7});
         double[] expResult = {8009.72259, 7188.673029, 4216.37072,1546.0581};
 
         decomposeHighWithAssert(data, highDecompositionFilter, expResult);
@@ -116,30 +83,8 @@ public class CyclicWrappingTransformStrategyTest {
         double[] approximation = {5, 9, 7};
         double[] details = {-1, -1, 5};
 
-        Filter lowReconstructionFilter = new Filter() {
-
-            @Override
-            public double[] getCoeff() {
-                return new double[]{1, 1};
-            }
-
-            @Override
-            public int getLength() {
-                return 2;
-            }
-        };
-        Filter highReconstructionFilter = new Filter() {
-
-            @Override
-            public double[] getCoeff() {
-                return new double[]{1, -1};
-            }
-
-            @Override
-            public int getLength() {
-                return 2;
-            }
-        };
+        Filter lowReconstructionFilter = new Filter(new double[]{1, 1});
+        Filter highReconstructionFilter = new Filter(new double[]{1, -1});
 
         double[] expResult = {2, 4, 6, 8, 10, 12};
         double[] result = instance.reconstruct(approximation, details, lowReconstructionFilter, highReconstructionFilter);

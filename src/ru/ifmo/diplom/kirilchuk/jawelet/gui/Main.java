@@ -54,6 +54,12 @@ public class Main {
                         imageData = ArrayUtils.convert(data);
                         ImageUtils.setNewGrayscaleImageData(image, imageData);
                         gui.setImage(image);
+                        
+                        SwingUtils.showError(gui, "After you click OK would be magic.", false);
+                        transform.reconstructInplace(data);
+                        imageData = ArrayUtils.convert(data);
+                        ImageUtils.setNewGrayscaleImageData(image, imageData);
+                        gui.setImage(image);
                     }
                     
                 } catch (IOException ex) {

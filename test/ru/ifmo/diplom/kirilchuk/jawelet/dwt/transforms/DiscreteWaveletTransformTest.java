@@ -42,7 +42,7 @@ public class DiscreteWaveletTransformTest {
     public void testDecomposeTo1Level() {
         double[] data = {0, 1, 2, 3, 4, 5, 6, 7};
 
-        DiscreteWaveletTransform instance = new HaarWaveletTransform();
+        DWTransform1D instance = new HaarWaveletTransform();
         double[] approximationExpect = {2.121320343559, 4.949747468305, 7.778174593052, 4.949747468305};
         double[] detailExpect = {-0.707106781186, -0.707106781186, -0.707106781186, 4.949747468306};
 
@@ -55,7 +55,7 @@ public class DiscreteWaveletTransformTest {
     public void testReconstructionFrom1LevelDecomposition() {
         double[] data = {0, 1, 2, 3, 4, 5, 6, 7};
 
-        DiscreteWaveletTransform instance = new HaarWaveletTransform();
+        DWTransform1D instance = new HaarWaveletTransform();
         double[] approximationExpect = {2.121320343559, 4.949747468305, 7.778174593052, 4.949747468305};
         double[] detailExpect = {-0.707106781186, -0.707106781186, -0.707106781186, 4.949747468306};
 
@@ -71,7 +71,7 @@ public class DiscreteWaveletTransformTest {
     public void testReconstructionFrom2LevelDecomposition() {
         double[] data = {0, 1, 2, 3, 4, 5, 6, 7};
 
-        DiscreteWaveletTransform instance = new HaarWaveletTransform();
+        DWTransform1D instance = new HaarWaveletTransform();
 
         DecompositionResult result = instance.decompose(data, 2);
 
@@ -84,7 +84,7 @@ public class DiscreteWaveletTransformTest {
     public void testReconstructionFrom3LevelDecomposition() {
         double[] data = {0, 1, 2, 3, 4, 5, 6, 7};
 
-        DiscreteWaveletTransform instance = new HaarWaveletTransform();
+        DWTransform1D instance = new HaarWaveletTransform();
 
         DecompositionResult result = instance.decompose(data, 3);
 
@@ -104,7 +104,7 @@ public class DiscreteWaveletTransformTest {
             data[i] = rnd.nextInt(Integer.MAX_VALUE);
         }
 
-        DiscreteWaveletTransform instance = new HaarWaveletTransform();
+        DWTransform1D instance = new HaarWaveletTransform();
 
         DecompositionResult result = instance.decompose(data);
         assertEquals(power, result.getLevel());
@@ -120,7 +120,7 @@ public class DiscreteWaveletTransformTest {
     public void testReconstructionFrom1LevelWithLeGall() {
         double[] data = {1,2,3,4};
 
-        DiscreteWaveletTransform instance = new LeGallWaveletTransform();
+        DWTransform1D instance = new LeGallWaveletTransform();
         DecompositionResult result = instance.decompose(data, 1);
 
         double[] reconstructed = instance.reconstruct(result);
@@ -140,7 +140,7 @@ public class DiscreteWaveletTransformTest {
             data[i] = rnd.nextInt(Integer.MAX_VALUE);
         }
 
-        DiscreteWaveletTransform instance = new LeGallWaveletTransform();
+        DWTransform1D instance = new LeGallWaveletTransform();
 
         DecompositionResult result = instance.decompose(data, power - 1);
         assertEquals(power - 1, result.getLevel());

@@ -4,7 +4,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
 import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.AbstractFiltersFactory;
 
 /**
- * Haar(normalized) filters factory.
+ * Haar(orthonormalized) filters factory.
  * 
  * @author Kirilchuk V.E.
  */
