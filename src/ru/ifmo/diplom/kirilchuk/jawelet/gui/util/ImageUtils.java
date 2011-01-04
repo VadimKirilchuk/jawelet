@@ -64,4 +64,20 @@ public final class ImageUtils {
 
         return result;
     }
+
+	public static void setNewGrayscaleImageData(BufferedImage image, int[][] imageData) {
+        Assert.checkNotNull(image, "Image can`t be null.");
+        Assert.argCondition(isGrayScale(image), "Image must be grayscale.");
+        
+        int dataHeigth = imageData.length;
+        int dataWidth = imageData[0].length;
+        int[] data = new int[dataHeigth * dataWidth];
+        int shift = 0;
+        for(int row = 0; row < dataHeigth; ++row) {
+        	System.arraycopy(imageData[row], 0, data, shift, dataWidth);
+        	shift += dataWidth;
+        }
+        
+        image.getRaster().setPixels(0, 0, dataWidth, dataHeigth, data);
+	}
 }
