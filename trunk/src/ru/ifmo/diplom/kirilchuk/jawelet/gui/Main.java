@@ -40,26 +40,10 @@ public class Main {
                     if (image == null) {
                         SwingUtils.showError(gui, "Image load failed.", true);
                         gui.dispose();
-                    } else if (!ImageUtils.isGrayScale(image)) {
-                        SwingUtils.showError(gui, "Image must be grayscale.", true);
-                        gui.dispose();
                     } else {
-                    	int[][] imageData = ImageUtils.getGrayscaleImageData(image);
-                        gui.setImage(image);
-                        
-                        SwingUtils.showError(gui, "After you click OK would be magic.", false);
-                        double[][] data = ArrayUtils.convert(imageData);
-                        DWTransform2D transform = new DWTransform2D(new LeGallWaveletTransform());
-                        transform.decomposeInplace(data);
-                        imageData = ArrayUtils.convert(data);
-                        ImageUtils.setNewGrayscaleImageData(image, imageData);
-                        gui.setImage(image);
-                        
-                        SwingUtils.showError(gui, "After you click OK would be magic.", false);
-                        transform.reconstructInplace(data);
-                        imageData = ArrayUtils.convert(data);
-                        ImageUtils.setNewGrayscaleImageData(image, imageData);
-                        gui.setImage(image);
+                    	/* autoconvert to grayscale */
+                    	image = ImageUtils.tryCreateGrayscaleCopy(image);
+                    	gui.setImage(image);
                     }
                     
                 } catch (IOException ex) {
