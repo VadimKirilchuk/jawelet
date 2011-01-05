@@ -100,6 +100,7 @@ public final class ImageUtils {
 		BufferedImage result = new BufferedImage(source.getWidth(), source.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
 		Graphics graphics = result.getGraphics();
 		graphics.drawImage(source, 0, 0, null);
+		graphics.dispose();
 		
 		return result;
 	}
