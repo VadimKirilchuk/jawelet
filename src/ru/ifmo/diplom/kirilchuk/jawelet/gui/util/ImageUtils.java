@@ -1,6 +1,10 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.gui.util;
 
+import java.awt.Graphics;
+import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.ColorConvertOp;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -44,18 +48,18 @@ public final class ImageUtils {
         return (type == BufferedImage.TYPE_BYTE_GRAY || type == BufferedImage.TYPE_USHORT_GRAY);
     }
 
-    public static int[][] getGrayscaleImageData(BufferedImage image) {
+    public static double[][] getGrayscaleImageData(BufferedImage image) {
         Assert.checkNotNull(image, "Image can`t be null.");
         Assert.argCondition(isGrayScale(image), "Image must be grayscale.");
 
         int width = image.getWidth();
         int heigth = image.getHeight();
 
-        int[] lineData = new int[width * heigth];
+        double[] lineData = new double[width * heigth];
         image.getRaster().getPixels(0, 0, width, heigth, lineData);
 
         //converting to 2D array
-        int[][] result = new int[width][heigth];
+        double[][] result = new double[width][heigth];
         int shift = 0;
         for (int row = 0; row < heigth; ++row) {
             System.arraycopy(lineData, shift, result[row], 0, width);
@@ -65,13 +69,13 @@ public final class ImageUtils {
         return result;
     }
 
-	public static void setNewGrayscaleImageData(BufferedImage image, int[][] imageData) {
+	public static void setNewGrayscaleImageData(BufferedImage image, double[][] imageData) {
         Assert.checkNotNull(image, "Image can`t be null.");
         Assert.argCondition(isGrayScale(image), "Image must be grayscale.");
         
         int dataHeigth = imageData.length;
         int dataWidth = imageData[0].length;
-        int[] data = new int[dataHeigth * dataWidth];
+        double[] data = new double[dataHeigth * dataWidth];
         int shift = 0;
         for(int row = 0; row < dataHeigth; ++row) {
         	System.arraycopy(imageData[row], 0, data, shift, dataWidth);
@@ -79,5 +83,24 @@ public final class ImageUtils {
         }
         
         image.getRaster().setPixels(0, 0, dataWidth, dataHeigth, data);
+	}
+	
+	public static BufferedImage changeColorSpace(BufferedImage source, ColorSpace colorSpace) {
+		BufferedImageOp operation = new ColorConvertOp(colorSpace, null);
+		return operation.filter(source, null);
+	}
+	
+	public static BufferedImage tryCreateGrayscaleCopy(BufferedImage source) {
+		Assert.checkNotNull(source, "Source image can`t be null.");
+		
+		if(isGrayScale(source)) {
+			return source;
+		}
+		
+		BufferedImage result = new BufferedImage(source.getWidth(), source.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+		Graphics graphics = result.getGraphics();
+		graphics.drawImage(source, 0, 0, null);
+		
+		return result;
 	}
 }
