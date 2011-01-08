@@ -1,17 +1,19 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner;
 
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.AbstractFiltersFactory;
+
+import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters.Filter;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.CyclicBeginExtension;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.CyclicEndExtension;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.ZeroPaddingToEven;
-import static org.junit.Assert.*;
 
 /**
  *

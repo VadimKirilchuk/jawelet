@@ -1,17 +1,21 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms;
 
-import java.util.Arrays;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Random;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.DecompositionResult;
-import static org.junit.Assert.*;
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.haar.impl.HaarWaveletTransform;
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.legall.impl.LeGallWaveletTransform;
+
+import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.DecompositionResult;
+import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.DWTransform1D;
+import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.haar.impl.HaarWaveletTransform;
+import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.legall.impl.LeGallWaveletTransform;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
 
 /**

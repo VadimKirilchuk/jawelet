@@ -1,6 +1,6 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.util;
 
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
+import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters.Filter;
 
 /**
  * 

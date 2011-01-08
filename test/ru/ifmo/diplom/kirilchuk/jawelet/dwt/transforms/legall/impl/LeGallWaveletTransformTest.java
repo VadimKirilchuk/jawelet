@@ -1,11 +1,14 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.legall.impl;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import java.util.Random;
+
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.DWTransform1D;
+import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.DWTransform1D;
+import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.legall.impl.LeGallWaveletTransform;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
 
 /**
