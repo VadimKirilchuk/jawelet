@@ -104,4 +104,33 @@ public final class ImageUtils {
 		
 		return result;
 	}
+	
+	/**
+	 * Normalizes image data and return normalized copy of the data. 
+	 * If data element in data is bigger than 255 then in copy it will be set to 255
+	 * and if it is less than 0 it will be set to 0.
+	 * 
+	 * <p> It must be done for proper set of such data into image raster.
+	 * 
+	 * @param imageData data to normalize
+	 * @return normalized data
+	 */
+	public static double[][] grayscaleNormalize(double[][] imageData) {
+		int heigth = imageData.length;
+		int width  = imageData[0].length;
+		double[][] result = new double[heigth][width];
+		for (int row = 0; row < heigth; ++row) {
+			for (int col = 0; col < width; ++col) {
+				double val = imageData[row][col];
+				if (val > 255) {
+					result[row][col] = 255;
+				} else if (val < 0) {
+					result[row][col] = 0;
+				} else {
+					result[row][col] = imageData[row][col];
+				}
+			}
+		}
+		return result;
+	}
 }

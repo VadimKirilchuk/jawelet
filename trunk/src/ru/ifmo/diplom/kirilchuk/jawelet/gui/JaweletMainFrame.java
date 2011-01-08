@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -18,10 +19,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 
-import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.DWTransform2D;
-import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.legall.impl.LeGallWaveletTransform;
 import ru.ifmo.diplom.kirilchuk.jawelet.gui.util.ImageUtils;
 import ru.ifmo.diplom.kirilchuk.jawelet.gui.util.SwingUtils;
+import ru.ifmo.diplom.kirilchuk.jawelet.toolbox.ImageWaveletTransformer;
 
 /**
  * 
@@ -30,11 +30,13 @@ import ru.ifmo.diplom.kirilchuk.jawelet.gui.util.SwingUtils;
 public class JaweletMainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	private final int width  = 800;
+	private final int width = 800;
 	private final int heigth = 600;
+	
+	private final ImageWaveletTransformer transformer = new ImageWaveletTransformer();
 
-	private final JLabel imageLabel = new JLabel();
-	private final JButton decomposeButton = new JButton("Decompose");
+	private final JLabel  imageLabel        = new JLabel();
+	private final JButton decomposeButton   = new JButton("Decompose");
 	private final JButton reconstructButton = new JButton("Reconstruct");
 
 	private BufferedImage image;
@@ -45,13 +47,13 @@ public class JaweletMainFrame extends JFrame {
 		setSize(width, heigth);
 
 		initMenu();
-		initAndLayout();
+		initComponentsAndLayout();
 
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 
-	private void initAndLayout() {
+	private void initComponentsAndLayout() {
 		setLayout(new BorderLayout());
 		add(new JScrollPane(imageLabel), BorderLayout.CENTER);
 
@@ -77,6 +79,12 @@ public class JaweletMainFrame extends JFrame {
 	private void initMenu() {
 		JMenuBar menuBar = new JMenuBar();
 
+		/* menu 'Options' */
+		JMenu optionsMenu = new JMenu("Options");
+		final JCheckBoxMenuItem autoGray = new JCheckBoxMenuItem("Convert to gray", true);
+		optionsMenu.add(autoGray);
+
+		/* menu 'File' */
 		JMenu fileMenu = new JMenu("File");
 
 		JMenuItem loadItem = new JMenuItem("Load image");
@@ -99,7 +107,9 @@ public class JaweletMainFrame extends JFrame {
 					}
 
 					/* autoconvert to grayscale */
-					image = ImageUtils.tryCreateGrayscaleCopy(image);
+					if(autoGray.isSelected()) {//TODO do this task in background
+						image = ImageUtils.tryCreateGrayscaleCopy(image);
+					}
 					gui.setImage(image);
 				} catch (IOException ex) {
 					SwingUtils.showError(gui, ex.getMessage());
@@ -108,7 +118,7 @@ public class JaweletMainFrame extends JFrame {
 		});
 		fileMenu.add(loadItem);
 		fileMenu.add(new JSeparator());
-		
+
 		JMenuItem exitItem = new JMenuItem("Exit");
 		exitItem.addActionListener(new ActionListener() {
 
@@ -119,39 +129,24 @@ public class JaweletMainFrame extends JFrame {
 		});
 		fileMenu.add(exitItem);
 
+		/* Add menus to menuBar and set menuBar to JFrame */
 		menuBar.add(fileMenu);
+		menuBar.add(optionsMenu);
 		setJMenuBar(menuBar);
 	}
-	
 
 	private class TransformButtonListener implements ActionListener {
-		private final DWTransform2D transform = new DWTransform2D(new LeGallWaveletTransform());
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			double[][] imageData = ImageUtils.getGrayscaleImageData(image);
-			if (e.getSource() == decomposeButton) {
-				transform.decomposeInplace(imageData);
-				normalizeForOutput(imageData);
+			double[][] result;
+			if (e.getSource() == decomposeButton) {//TODO level option!
+				result = transformer.decomposeTransform(image, 1).getData();
+				result = ImageUtils.grayscaleNormalize(result);
 			} else {
-				transform.reconstructInplace(imageData);
+				result = transformer.reconstructTransform(1).getData();
 			}
-			ImageUtils.setNewGrayscaleImageData(image, imageData);
+			ImageUtils.setNewGrayscaleImageData(image, result);
 			imageLabel.repaint();
-		}
-
-		private void normalizeForOutput(double[][] imageData) {
-			for (int row = 0; row < imageData.length; ++row) {
-				for (int col = 0; col < imageData[0].length; ++col) {
-					double val = imageData[row][col];
-					if (val > 255) {
-						imageData[row][col] = 255;
-					} else if (val < 0) {
-						imageData[row][col] = 0;
-					}
-				}
-			}
-
 		}
 	}
 }
