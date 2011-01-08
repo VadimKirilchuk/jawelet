@@ -1,13 +1,16 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.dwt.transforms.strategies.impl;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.Filter;
-import ru.ifmo.diplom.kirilchuk.jawelet.dwt.filters.haar.impl.HaarFiltersFactory;
+
+import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters.Filter;
+import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters.haar.impl.HaarFiltersFactory;
+import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.strategies.impl.CyclicWrappingTransformStrategy;
 
 /**
  *
