@@ -1,9 +1,14 @@
 package ru.ifmo.diplom.kirilchuk.coding.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Outputer {
 
 	private int buffer;
 	private int bits_to_go;
+	
+	private List<Character> output = new ArrayList<Character>(); 
 	
 	public Outputer() {}
 	
@@ -21,7 +26,6 @@ public class Outputer {
 			 * Output bits_to_follow opposite bits. Set
 			 * bits_to_follow to zero.    
 			 */			
-//			output_bit(!bit); //TODO WTF?
 			output_bit(bit == 0 ? 1 : 0);
 			bits_to_follow -= 1;			
 		}
@@ -30,7 +34,6 @@ public class Outputer {
     }
 	
 	/* OUTPUT A BIT. */
-
 	private void output_bit(int bit)	{
 		buffer >>= 1; 
 		if (bit != 0) {
@@ -42,15 +45,15 @@ public class Outputer {
 	    	/* 
 	    	 * Output buffer if it is now full.   
 	    	 */
-//	        putc(buffer,stdout); //TODO WTF?
-	    	System.out.print((char)buffer);
+	    	output.add((char)buffer);
 	        bits_to_go = 8;
 	    }
 	}
 
 	
-	public void stopOutputingBits() {
-//		putc(buffer>>bits_to_go,stdout); //TODO WTF?
-		System.out.print(buffer>>bits_to_go);
+	public List<Character> stopOutputingBits() {
+		output.add((char)(buffer>>bits_to_go));
+		
+		return output;
 	}
 }

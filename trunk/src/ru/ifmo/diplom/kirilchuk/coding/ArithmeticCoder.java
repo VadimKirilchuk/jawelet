@@ -1,5 +1,7 @@
 package ru.ifmo.diplom.kirilchuk.coding;
 
+import java.util.List;
+
 import ru.ifmo.diplom.kirilchuk.coding.util.Outputer;
 
 public class ArithmeticCoder {
@@ -10,11 +12,6 @@ public class ArithmeticCoder {
 		public static final int NUM_OF_CHARS = 256;
 		/** Index of EOF symbol */
 		public static final int EOF_INDEX = NUM_OF_CHARS + 1;
-		/** Total number of symbols */
-		public static final int NUM_OF_SYMBOLS = NUM_OF_CHARS + 1;
-
-		/** Maximum allowed frequency count */
-		public static final int MAX_FREQUENCY = 16383;
 
 		/* SIZE OF ARITHMETIC CODE VALUES. */
 
@@ -42,7 +39,7 @@ public class ArithmeticCoder {
 	private long high;
 
 	private long bits_to_follow;
-	private Outputer bitHandler;
+	private Outputer bitHandler;	
 
 	public void startEncoding() {
 		low = 0;
@@ -107,8 +104,8 @@ public class ArithmeticCoder {
 		}
 	}
 	
-	public void stopOutputingBits() {
-		bitHandler.stopOutputingBits();
+	public List<Character> stopOutputingBits() {
+		return bitHandler.stopOutputingBits();
 	}
 
 	public void encodeCharacter(int ch) {

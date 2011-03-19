@@ -1,7 +1,5 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms;
 
-import java.util.Arrays;
-
 import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
 
