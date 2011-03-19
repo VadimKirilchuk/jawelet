@@ -5,8 +5,7 @@ public class AdaptiveModel {
 
 	/** Number of character symbols */
 	private static final int NUM_OF_CHARS = 256;
-	/** Index of EOF symbol */
-	private static final int EOF_INDEX = NUM_OF_CHARS + 1;
+
 	/** Total number of symbols */
 	private static final int NUM_OF_SYMBOLS = NUM_OF_CHARS + 1;
 
@@ -88,6 +87,10 @@ public class AdaptiveModel {
 	
 	public int getIndex(int character) {
 		return characterToIndex[character];
+	}
+	
+	public int getChar(int index) {
+		return indexToCharacter[index];
 	}
 
 	public int[] getCumulativeFreq() {
