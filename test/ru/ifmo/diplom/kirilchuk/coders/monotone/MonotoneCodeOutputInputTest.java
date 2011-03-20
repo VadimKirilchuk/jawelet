@@ -51,5 +51,6 @@ public class MonotoneCodeOutputInputTest {
 		MonotoneCodeInputStream input = new MonotoneCodeInputStream(decoder, bitIn);
 		
 		Assert.assertEquals(value, input.read());
+		input.close();
 	}
 }
