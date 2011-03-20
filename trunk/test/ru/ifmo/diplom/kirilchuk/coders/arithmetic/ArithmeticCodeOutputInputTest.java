@@ -44,6 +44,7 @@ public class ArithmeticCodeOutputInputTest {
 		ArithDecoder decoder = new ArithDecoder(bitInput);
 		ArithCodeInputStream input = new ArithCodeInputStream(decoder, decodeModel);
 		
-		assertEquals(value, input.read());		
+		assertEquals(value, input.read());	
+		input.close();
 	}
 }
