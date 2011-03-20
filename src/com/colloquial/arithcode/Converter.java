@@ -8,7 +8,7 @@ package com.colloquial.arithcode;
  * @version 1.1
  * @since 1.1
  */
-final class Converter {
+public final class Converter {
 
 	/**
 	 * Returns byte coded by the specified integer.
@@ -16,7 +16,7 @@ final class Converter {
 	 * @param i Integer to convert to a byte.
 	 * @return Byte coded by the specified integer.
 	 */
-	static byte integerToByte(int i) {
+	public static byte integerToByte(int i) {
 		return (byte) (i - 128);
 	}
 
@@ -26,7 +26,7 @@ final class Converter {
 	 * @param b Byte to code as an integer.
 	 * @return Integer code for the specified byte.
 	 */
-	static int byteToInteger(byte b) {
+	public static int byteToInteger(byte b) {
 		return 128 + (int) b;
 	}
 

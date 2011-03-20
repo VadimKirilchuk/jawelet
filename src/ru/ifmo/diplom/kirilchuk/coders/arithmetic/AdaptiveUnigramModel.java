@@ -1,4 +1,5 @@
-package com.colloquial.arithcode;
+package ru.ifmo.diplom.kirilchuk.coders.arithmetic;
+
 
 /**
  * <P>

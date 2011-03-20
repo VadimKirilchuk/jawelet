@@ -1,11 +1,13 @@
-package com.colloquial.arithcode.coders;
+package ru.ifmo.diplom.kirilchuk.coders.arithmetic;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.colloquial.arithcode.io.BitInput;
-import com.colloquial.arithcode.io.BitInputImpl;
-import static com.colloquial.arithcode.coders.ArithmeticCoderConstants.*;
+import ru.ifmo.diplom.coding.io.BitInput;
+import ru.ifmo.diplom.coding.io.BitInputImpl;
+
+
+import static ru.ifmo.diplom.kirilchuk.coders.arithmetic.ArithmeticCoderConstants.*;
 /**
  * <P>
  * Performs arithmetic decoding, converting bit input into cumulative

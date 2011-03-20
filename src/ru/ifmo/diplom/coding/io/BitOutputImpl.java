@@ -1,4 +1,4 @@
-package com.colloquial.arithcode.io;
+package ru.ifmo.diplom.coding.io;
 
 import java.io.OutputStream;
 import java.io.IOException;

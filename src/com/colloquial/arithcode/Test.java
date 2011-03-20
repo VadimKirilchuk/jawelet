@@ -11,6 +11,12 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Random;
 
+import ru.ifmo.diplom.kirilchuk.coders.arithmetic.AdaptiveUnigramModel;
+import ru.ifmo.diplom.kirilchuk.coders.arithmetic.ArithCodeInputStream;
+import ru.ifmo.diplom.kirilchuk.coders.arithmetic.ArithCodeModel;
+import ru.ifmo.diplom.kirilchuk.coders.arithmetic.ArithCodeOutputStream;
+
+
 /** Runs test suite for arithmetic coding and decoding with all of th esupplied
  * compression models from {@link #main}. Behavior is specified with
  * the following arguments.

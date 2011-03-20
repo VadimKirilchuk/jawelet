@@ -1,11 +1,13 @@
-package com.colloquial.arithcode.coders;
+package ru.ifmo.diplom.kirilchuk.coders.arithmetic;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.colloquial.arithcode.io.BitOutput;
-import com.colloquial.arithcode.io.BitOutputImpl;
-import static com.colloquial.arithcode.coders.ArithmeticCoderConstants.*;
+import ru.ifmo.diplom.coding.io.BitOutput;
+import ru.ifmo.diplom.coding.io.BitOutputImpl;
+
+
+import static ru.ifmo.diplom.kirilchuk.coders.arithmetic.ArithmeticCoderConstants.*;
 /**
  * <P>
  * Performs arithmetic encoding, converting cumulative probability interval
