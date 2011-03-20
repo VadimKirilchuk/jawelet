@@ -1,11 +1,12 @@
-package com.colloquial.arithcode;
+package ru.ifmo.diplom.kirilchuk.coders.arithmetic;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.colloquial.arithcode.coders.ArithEncoder;
-import com.colloquial.arithcode.io.BitOutput;
+import ru.ifmo.diplom.coding.io.BitOutput;
+
+import com.colloquial.arithcode.Converter;
 
 /**
  * <P>

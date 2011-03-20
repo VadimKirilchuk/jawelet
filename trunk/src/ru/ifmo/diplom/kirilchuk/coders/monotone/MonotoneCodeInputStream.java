@@ -3,7 +3,8 @@ package ru.ifmo.diplom.kirilchuk.coders.monotone;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.colloquial.arithcode.io.BitInput;
+import ru.ifmo.diplom.coding.io.BitInput;
+
 
 public class MonotoneCodeInputStream extends InputStream {
 

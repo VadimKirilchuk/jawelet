@@ -2,7 +2,8 @@ package ru.ifmo.diplom.kirilchuk.coders;
 
 import java.io.IOException;
 
-import com.colloquial.arithcode.io.BitOutput;
+import ru.ifmo.diplom.coding.io.BitOutput;
+
 
 /**
  * Helper class for tests.

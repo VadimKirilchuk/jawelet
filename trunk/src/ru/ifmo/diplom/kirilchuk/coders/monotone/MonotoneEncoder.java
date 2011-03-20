@@ -2,7 +2,8 @@ package ru.ifmo.diplom.kirilchuk.coders.monotone;
 
 import java.io.IOException;
 
-import com.colloquial.arithcode.io.BitOutput;
+import ru.ifmo.diplom.coding.io.BitOutput;
+
 
 public class MonotoneEncoder {
 

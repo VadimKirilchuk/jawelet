@@ -1,4 +1,5 @@
-package com.colloquial.arithcode;
+package ru.ifmo.diplom.kirilchuk.coders.arithmetic;
+
 
 /** <P>Interface for an adaptive statistical model of a stream to be used
  * as a basis for arithmetic coding and decoding. As in {@link

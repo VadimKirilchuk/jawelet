@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.colloquial.arithcode.io.BitInput;
+import ru.ifmo.diplom.coding.io.BitInput;
+
 
 /**
  * Helper class for tests.

@@ -1,10 +1,11 @@
-package com.colloquial.arithcode;
+package ru.ifmo.diplom.kirilchuk.coders.arithmetic;
 
 import java.io.*;
 
-import com.colloquial.arithcode.coders.ArithDecoder;
-import com.colloquial.arithcode.io.BitInput;
-import com.colloquial.arithcode.io.BitInputImpl;
+import ru.ifmo.diplom.coding.io.BitInput;
+import ru.ifmo.diplom.coding.io.BitInputImpl;
+
+import com.colloquial.arithcode.Converter;
 
 /** <P>An input stream which uses a statistical model and arithmetic
  * coding for decompression of encoded bytes read from an underlying
