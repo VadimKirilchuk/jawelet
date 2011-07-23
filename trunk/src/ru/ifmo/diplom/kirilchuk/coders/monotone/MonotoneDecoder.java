@@ -2,7 +2,7 @@ package ru.ifmo.diplom.kirilchuk.coders.monotone;
 
 import java.io.IOException;
 
-import ru.ifmo.diplom.coding.io.BitInput;
+import ru.ifmo.diplom.kirilchuk.coding.io.BitInput;
 
 
 public class MonotoneDecoder {

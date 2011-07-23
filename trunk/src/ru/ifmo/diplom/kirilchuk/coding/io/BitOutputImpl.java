@@ -1,4 +1,4 @@
-package ru.ifmo.diplom.coding.io;
+package ru.ifmo.diplom.kirilchuk.coding.io;
 
 import java.io.OutputStream;
 import java.io.IOException;
