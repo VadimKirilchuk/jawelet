@@ -2,8 +2,8 @@ package ru.ifmo.diplom.kirilchuk.coders.arithmetic;
 
 import java.io.*;
 
-import ru.ifmo.diplom.coding.io.BitInput;
-import ru.ifmo.diplom.coding.io.BitInputImpl;
+import ru.ifmo.diplom.kirilchuk.coding.io.BitInput;
+import ru.ifmo.diplom.kirilchuk.coding.io.BitInputImpl;
 
 import com.colloquial.arithcode.Converter;
 

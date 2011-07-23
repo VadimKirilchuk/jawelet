@@ -4,7 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import ru.ifmo.diplom.coding.io.BitOutput;
+import ru.ifmo.diplom.kirilchuk.coding.io.BitOutput;
 
 import com.colloquial.arithcode.Converter;
 

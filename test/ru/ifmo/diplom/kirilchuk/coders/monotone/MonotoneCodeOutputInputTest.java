@@ -8,10 +8,10 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import ru.ifmo.diplom.coding.io.BitInput;
-import ru.ifmo.diplom.coding.io.BitInputImpl;
-import ru.ifmo.diplom.coding.io.BitOutput;
-import ru.ifmo.diplom.coding.io.BitOutputImpl;
+import ru.ifmo.diplom.kirilchuk.coding.io.BitInput;
+import ru.ifmo.diplom.kirilchuk.coding.io.BitInputImpl;
+import ru.ifmo.diplom.kirilchuk.coding.io.BitOutput;
+import ru.ifmo.diplom.kirilchuk.coding.io.BitOutputImpl;
 
 
 public class MonotoneCodeOutputInputTest {

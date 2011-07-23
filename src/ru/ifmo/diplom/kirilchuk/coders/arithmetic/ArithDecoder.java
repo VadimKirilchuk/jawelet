@@ -3,8 +3,8 @@ package ru.ifmo.diplom.kirilchuk.coders.arithmetic;
 import java.io.IOException;
 import java.io.InputStream;
 
-import ru.ifmo.diplom.coding.io.BitInput;
-import ru.ifmo.diplom.coding.io.BitInputImpl;
+import ru.ifmo.diplom.kirilchuk.coding.io.BitInput;
+import ru.ifmo.diplom.kirilchuk.coding.io.BitInputImpl;
 
 
 import static ru.ifmo.diplom.kirilchuk.coders.arithmetic.ArithmeticCoderConstants.*;
