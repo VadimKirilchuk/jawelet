@@ -59,7 +59,7 @@ public final class ImageUtils {
         image.getRaster().getPixels(0, 0, width, heigth, lineData);
 
         //converting to 2D array
-        double[][] result = new double[width][heigth];
+        double[][] result = new double[heigth][width];
         int shift = 0;
         for (int row = 0; row < heigth; ++row) {
             System.arraycopy(lineData, shift, result[row], 0, width);
