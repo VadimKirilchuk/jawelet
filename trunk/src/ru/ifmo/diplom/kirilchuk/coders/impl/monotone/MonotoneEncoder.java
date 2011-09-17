@@ -1,11 +1,12 @@
-package ru.ifmo.diplom.kirilchuk.coders.monotone;
+package ru.ifmo.diplom.kirilchuk.coders.impl.monotone;
 
 import java.io.IOException;
 
-import ru.ifmo.diplom.kirilchuk.coding.io.BitOutput;
+import ru.ifmo.diplom.kirilchuk.coders.Encoder;
+import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
 
 
-public class MonotoneEncoder {
+public class MonotoneEncoder implements Encoder {
 
 	private static final int	BITS_IN_INTEGER	= 32;
 

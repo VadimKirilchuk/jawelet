@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.ifmo.diplom.kirilchuk.coding.io.BitInput;
+import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
 
 
 /**

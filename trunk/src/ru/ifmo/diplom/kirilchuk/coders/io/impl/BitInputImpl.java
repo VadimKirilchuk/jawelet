@@ -1,14 +1,16 @@
-package ru.ifmo.diplom.kirilchuk.coding.io;
+package ru.ifmo.diplom.kirilchuk.coders.io.impl;
 
 import java.io.InputStream;
 import java.io.IOException;
+
+import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
 
 
 /**
  * Reads input from an underlying input stream a bit at a time. Bits are
  * returned as booleans, with <code>true=1</code> and <code>false=0</code>.
  * 
- * @see ru.ifmo.diplom.kirilchuk.coding.io.BitOutputImpl
+ * @see ru.ifmo.diplom.kirilchuk.coders.io.impl.BitOutputImpl
  * 
  * @author <a href="http://www.colloquial.com/carp/">Bob Carpenter</a>
  * @version 1.1

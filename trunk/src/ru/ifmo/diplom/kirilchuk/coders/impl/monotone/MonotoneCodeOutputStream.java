@@ -1,9 +1,9 @@
-package ru.ifmo.diplom.kirilchuk.coders.monotone;
+package ru.ifmo.diplom.kirilchuk.coders.impl.monotone;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-import ru.ifmo.diplom.kirilchuk.coding.io.BitOutput;
+import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
 
 
 public class MonotoneCodeOutputStream extends OutputStream {

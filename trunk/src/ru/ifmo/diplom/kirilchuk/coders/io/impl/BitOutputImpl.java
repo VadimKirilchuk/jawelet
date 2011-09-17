@@ -1,7 +1,9 @@
-package ru.ifmo.diplom.kirilchuk.coding.io;
+package ru.ifmo.diplom.kirilchuk.coders.io.impl;
 
 import java.io.OutputStream;
 import java.io.IOException;
+
+import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
 
 
 /**

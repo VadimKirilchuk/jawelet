@@ -1,4 +1,4 @@
-package ru.ifmo.diplom.kirilchuk.coders.arithmetic;
+package ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -7,10 +7,16 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import ru.ifmo.diplom.kirilchuk.coding.io.BitInput;
-import ru.ifmo.diplom.kirilchuk.coding.io.BitInputImpl;
-import ru.ifmo.diplom.kirilchuk.coding.io.BitOutput;
-import ru.ifmo.diplom.kirilchuk.coding.io.BitOutputImpl;
+import ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.AdaptiveUnigramModel;
+import ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithCodeInputStream;
+import ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithCodeModel;
+import ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithCodeOutputStream;
+import ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithDecoder;
+import ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithEncoder;
+import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
+import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
+import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitInputImpl;
+import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitOutputImpl;
 
 public class ArithmeticCodeOutputInputTest {
 	
