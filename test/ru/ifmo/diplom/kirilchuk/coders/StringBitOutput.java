@@ -2,7 +2,7 @@ package ru.ifmo.diplom.kirilchuk.coders;
 
 import java.io.IOException;
 
-import ru.ifmo.diplom.kirilchuk.coding.io.BitOutput;
+import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
 
 
 /**

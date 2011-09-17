@@ -1,4 +1,4 @@
-package ru.ifmo.diplom.kirilchuk.coders.arithmetic;
+package ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic;
 
 
 /** <P>Interface for an adaptive statistical model of a stream to be used

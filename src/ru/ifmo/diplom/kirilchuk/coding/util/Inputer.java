@@ -3,6 +3,10 @@ package ru.ifmo.diplom.kirilchuk.coding.util;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @deprecated was added only for experimental purposes.
+ * @author Kirilchuk V.E.
+ */
 public class Inputer {
 
 	private int buffer;

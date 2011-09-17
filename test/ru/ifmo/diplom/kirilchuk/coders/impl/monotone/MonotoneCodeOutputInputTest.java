@@ -1,4 +1,4 @@
-package ru.ifmo.diplom.kirilchuk.coders.monotone;
+package ru.ifmo.diplom.kirilchuk.coders.impl.monotone;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,10 +8,14 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import ru.ifmo.diplom.kirilchuk.coding.io.BitInput;
-import ru.ifmo.diplom.kirilchuk.coding.io.BitInputImpl;
-import ru.ifmo.diplom.kirilchuk.coding.io.BitOutput;
-import ru.ifmo.diplom.kirilchuk.coding.io.BitOutputImpl;
+import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneCodeInputStream;
+import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneCodeOutputStream;
+import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneDecoder;
+import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneEncoder;
+import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
+import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
+import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitInputImpl;
+import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitOutputImpl;
 
 
 public class MonotoneCodeOutputInputTest {

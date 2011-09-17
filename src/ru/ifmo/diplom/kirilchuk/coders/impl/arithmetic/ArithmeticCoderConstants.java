@@ -1,4 +1,4 @@
-package ru.ifmo.diplom.kirilchuk.coders.arithmetic;
+package ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic;
 
 /**
  * A generic arithmetic coding subclass containing elements common to both

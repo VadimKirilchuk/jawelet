@@ -1,5 +1,9 @@
 package ru.ifmo.diplom.kirilchuk.coding;
 
+/**
+ * @deprecated use arithmetic coders stuff from other package
+ * @author Kirilchuk V.E.
+ */
 public class AdaptiveModel {
 	/* THE SET OF SYMBOLS THAT MAY BE ENCODED. */
 

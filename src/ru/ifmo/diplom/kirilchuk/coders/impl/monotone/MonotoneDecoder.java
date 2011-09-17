@@ -1,11 +1,12 @@
-package ru.ifmo.diplom.kirilchuk.coders.monotone;
+package ru.ifmo.diplom.kirilchuk.coders.impl.monotone;
 
 import java.io.IOException;
 
-import ru.ifmo.diplom.kirilchuk.coding.io.BitInput;
+import ru.ifmo.diplom.kirilchuk.coders.Decoder;
+import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
 
 
-public class MonotoneDecoder {
+public class MonotoneDecoder implements Decoder {
 
 	public int decodeNext(BitInput in) throws IOException {
 		boolean isPositive = in.readBit();

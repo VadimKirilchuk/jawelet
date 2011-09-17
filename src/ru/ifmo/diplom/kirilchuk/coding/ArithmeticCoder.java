@@ -4,6 +4,10 @@ import java.util.List;
 
 import ru.ifmo.diplom.kirilchuk.coding.util.Outputer;
 
+/**
+ * @deprecated use arithmetic coders stuff from other package
+ * @author Kirilchuk V.E.
+ */
 public class ArithmeticCoder {
 	private static class CoderConstants {
 		/* THE SET OF SYMBOLS THAT MAY BE ENCODED. */

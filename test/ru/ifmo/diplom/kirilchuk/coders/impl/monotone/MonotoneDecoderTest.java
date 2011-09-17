@@ -1,9 +1,10 @@
-package ru.ifmo.diplom.kirilchuk.coders.monotone;
+package ru.ifmo.diplom.kirilchuk.coders.impl.monotone;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import ru.ifmo.diplom.kirilchuk.coders.StringBitInput;
+import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneDecoder;
 
 import static org.junit.Assert.*;
 

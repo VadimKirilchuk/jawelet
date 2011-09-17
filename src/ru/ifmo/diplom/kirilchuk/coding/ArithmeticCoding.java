@@ -6,7 +6,10 @@ import java.io.StringReader;
 import java.util.Collections;
 import java.util.List;
 
-
+/**
+ * @deprecated use arithmetic coders stuff from other package
+ * @author Kirilchuk V.E.
+ */
 public class ArithmeticCoding {
     
 	public static void main(String... args) throws IOException {
