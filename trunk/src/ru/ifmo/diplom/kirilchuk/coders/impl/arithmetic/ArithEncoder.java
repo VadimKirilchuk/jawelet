@@ -3,11 +3,12 @@ package ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import ru.ifmo.diplom.kirilchuk.coders.Encoder;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
 import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitOutputImpl;
 
-
 import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderConstants.*;
+
 /**
  * <P>
  * Performs arithmetic encoding, converting cumulative probability interval
@@ -25,29 +26,43 @@ import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderCon
  * @see BitOutputImpl
  * @since 1.0
  */
-public final class ArithEncoder {
-	
+public final class ArithEncoder implements Encoder {
+
+	/**
+	 * The model on which the output stream is based.
+	 */
+	private final ArithCodeModel	_model;
+
+	/**
+	 * Interval used for coding ranges.
+	 */
+	private final int[]				_interval	= new int[3];
+
 	/**
 	 * Bit output stream for writing encoding bits.
 	 */
-	private final BitOutput	_out;
+	// private final BitOutput _out;
 
 	/**
 	 * Number of bits beyond first bit that were normalized.
 	 */
-	private int				_bitsToFollow;
-	
+	private int						_bitsToFollow;
+
 	/**
 	 * The low bound on the current interval for coding. Initialized to zero.
 	 */
-	private long			_low;
+	private long					_low;
 
 	/**
 	 * The high bound on the current interval for coding. Initialized to top
 	 * value possible.
 	 */
-	private long			_high			= TOP_VALUE;
-	
+	private long					_high		= TOP_VALUE;
+
+	public ArithEncoder(ArithCodeModel model) {
+		this._model = model;
+	}
+
 	/**
 	 * Construct an arithmetic coder from a bit output.
 	 * 
@@ -55,9 +70,9 @@ public final class ArithEncoder {
 	 *            Underlying bit output.
 	 * @since 1.1
 	 */
-	public ArithEncoder(BitOutput out) {
-		_out = out;
-	}
+	// public ArithEncoder(BitOutput out) {
+	// _out = out;
+	// }
 
 	/**
 	 * Construct an arithmetic coder from an output stream.
@@ -65,9 +80,9 @@ public final class ArithEncoder {
 	 * @param out
 	 *            Underlying output stream.
 	 */
-	public ArithEncoder(OutputStream out) {
-		this(new BitOutputImpl(out));
-	}
+	// public ArithEncoder(OutputStream out) {
+	// this(new BitOutputImpl(out));
+	// }
 
 	/**
 	 * Close the arithmetic encoder, writing all bits that are buffered and
@@ -77,14 +92,14 @@ public final class ArithEncoder {
 	 *             If there is an exception writing to or closing the underlying
 	 *             output stream.
 	 */
-	public void close() throws IOException {
+	public void close(BitOutput out) throws IOException {
 		++_bitsToFollow; // need a final bit (not sure why)
 		if (_low < FIRST_QUARTER) {
-			bitPlusFollowFalse();
+			bitPlusFollowFalse(out);
 		} else {
-			bitPlusFollowTrue();
+			bitPlusFollowTrue(out);
 		}
-		_out.close();
+		// _out.close();
 	}
 
 	/**
@@ -95,7 +110,7 @@ public final class ArithEncoder {
 	 *             stream.
 	 */
 	public void flush() throws IOException {
-		_out.flush();
+		// _out.flush();
 	}
 
 	/**
@@ -108,8 +123,8 @@ public final class ArithEncoder {
 	 * @throws IOException
 	 *             If there is an exception writing to the underlying stream.
 	 */
-	public void encode(int[] counts) throws IOException {
-		encode(counts[0], counts[1], counts[2]);
+	private void encode(int[] counts, BitOutput out) throws IOException {
+		encode(counts[0], counts[1], counts[2], out);
 	}
 
 	/**
@@ -128,15 +143,15 @@ public final class ArithEncoder {
 	 *             If there is an exception writing to the underlying stream.
 	 * @see #encode(int[])
 	 */
-	public void encode(int lowCount, int highCount, int totalCount) throws IOException {
+	private void encode(int lowCount, int highCount, int totalCount, BitOutput out) throws IOException {
 		long range = _high - _low + 1;
 		_high = _low + (range * highCount) / totalCount - 1;
 		_low = _low + (range * lowCount) / totalCount;
 		while (true) {
 			if (_high < HALF) {
-				bitPlusFollowFalse();
+				bitPlusFollowFalse(out);
 			} else if (_low >= HALF) {
-				bitPlusFollowTrue();
+				bitPlusFollowTrue(out);
 				_low -= HALF;
 				_high -= HALF;
 			} else if (_low >= FIRST_QUARTER && _high < THIRD_QUARTER) {
@@ -149,7 +164,26 @@ public final class ArithEncoder {
 			_low <<= 1;
 			_high = (_high << 1) + 1;
 		}
-	}	
+	}
+
+	/**
+	 * Writes encoded symbol after necessary escapes to the underlying encoder.
+	 * 
+	 * @param symbol
+	 *            Symbol to encode.
+	 * @throws IOException
+	 *             If the underlying encoder throws an IOException.
+	 */
+	public void encode(int symbol, BitOutput out) throws IOException {
+		while (_model.escaped(symbol)) {
+			// have already done complete walk to compute escape
+			_model.interval(ArithCodeModel.ESCAPE, _interval);
+			encode(_interval, out);
+		}
+		// have already done walk to element to compute escape
+		_model.interval(symbol, _interval);
+		encode(_interval, out);
+	}
 
 	/**
 	 * Write a <code>true</code> bit, and then a number of <code>false</code>
@@ -159,7 +193,7 @@ public final class ArithEncoder {
 	 *             If there is an exception writing a bit.
 	 * @since 1.1
 	 */
-	private void bitPlusFollowTrue() throws IOException {
+	private void bitPlusFollowTrue(BitOutput _out) throws IOException {
 		for (_out.writeTrueBit(); _bitsToFollow > 0; --_bitsToFollow) {
 			_out.writeFalseBit();
 		}
@@ -173,7 +207,7 @@ public final class ArithEncoder {
 	 *             If there is an exception writing a bit.
 	 * @since 1.1
 	 */
-	private void bitPlusFollowFalse() throws IOException {
+	private void bitPlusFollowFalse(BitOutput _out) throws IOException {
 		for (_out.writeFalseBit(); _bitsToFollow > 0; --_bitsToFollow) {
 			_out.writeTrueBit();
 		}
