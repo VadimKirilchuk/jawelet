@@ -39,8 +39,8 @@ public class ArithmeticCodeOutputInputTest {
 	private void encodeDecodeWithAssert(int value) throws Exception {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();		
 		BitOutput bitOutput = new BitOutputImpl(bos);
-		ArithEncoder encoder = new ArithEncoder(bitOutput);
-		ArithCodeOutputStream output = new ArithCodeOutputStream(encoder, encodeModel);
+		ArithEncoder encoder = new ArithEncoder(encodeModel);
+		ArithCodeOutputStream output = new ArithCodeOutputStream(encoder, bitOutput);
 		
 		output.write(value);
 		output.close();

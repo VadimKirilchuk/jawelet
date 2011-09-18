@@ -24,75 +24,30 @@ import com.colloquial.arithcode.Converter;
  */
 public class ArithCodeOutputStream extends OutputStream {
 
-	/**
-	 * The model on which the output stream is based.
-	 */
-	private final ArithCodeModel	_model;
+	private BitOutput out;
 
 	/**
 	 * The arithmetic encoder used to write coded bytes.
 	 */
-	private final ArithEncoder		_encoder;
+	private final ArithEncoder encoder;
 
-	/**
-	 * Interval used for coding ranges.
-	 */
-	private final int[]				_interval	= new int[3];
-
-	/**
-	 * Construct an output stream that writes to the specified output events
-	 * with the given arithmetic encoder with the given statistical model.
-	 * 
-	 * @param encoder
-	 *            Arithmetic encoder to use for coding output.
-	 * @param model
-	 *            Statistical model of byte stream.
-	 * @since 1.1
-	 */
-	public ArithCodeOutputStream(ArithEncoder encoder, ArithCodeModel model) {
-		_encoder = encoder;
-		_model = model;
+	public ArithCodeOutputStream(ArithEncoder encoder, BitOutput output) {
+		this.encoder = encoder;
+		this.out = output;
 	}
 
 	/**
-	 * Construct an output stream that writes to the specified bit output using
-	 * arithmetic coding with the given statistical model.
+	 * Writes the eight low-order bits of argument to the output stream as a
+	 * byte.
 	 * 
-	 * @param bitOut
-	 *            Bit output to write coded bits to.
-	 * @param model
-	 *            Statistical model of byte stream.
-	 * @since 1.1
+	 * @param i
+	 *            Bits to write.
+	 * @throws IOException
+	 *             If there is an exception in writing to the underlying
+	 *             encoder.
 	 */
-	public ArithCodeOutputStream(BitOutput bitOut, ArithCodeModel model) {
-		this(new ArithEncoder(bitOut), model);
-	}
-
-	/**
-	 * Construct an output stream that writes to the specified buffered output
-	 * stream using arithmetic coding with the given statistical model.
-	 * 
-	 * @param model
-	 *            Statistical model of byte stream.
-	 * @param out
-	 *            Buffered output stream to write coded bits to.
-	 * @since 1.1
-	 */
-	public ArithCodeOutputStream(BufferedOutputStream out, ArithCodeModel model) {
-		this(new ArithEncoder(out), model);
-	}
-
-	/**
-	 * Construct an output stream that writes to the specified output stream
-	 * using arithmetic coding with the given statistical model.
-	 * 
-	 * @param output
-	 *            Output stream to write coded bits to.
-	 * @param model
-	 *            Statistical model of byte stream.
-	 */
-	public ArithCodeOutputStream(OutputStream out, ArithCodeModel model) {
-		this(new BufferedOutputStream(out), model);
+	public void write(int i) throws IOException {
+		encoder.encode(i, out);
 	}
 
 	/**
@@ -102,8 +57,9 @@ public class ArithCodeOutputStream extends OutputStream {
 	 *             If there is an exception in the underlying encoder.
 	 */
 	public void close() throws IOException {
-		encode(ArithCodeModel.EOF); // must code EOF to allow decoding to halt
-		_encoder.close();
+		write(ArithCodeModel.EOF); // must code EOF to allow decoding to halt
+		encoder.close(out); // to allow encoder to output buffered bits
+		out.close();
 	}
 
 	/**
@@ -113,7 +69,8 @@ public class ArithCodeOutputStream extends OutputStream {
 	 *             If there is an exception flushing the underlying stream.
 	 */
 	public void flush() throws IOException {
-		_encoder.flush();
+		encoder.flush();
+		out.flush();
 	}
 
 	/**
@@ -143,40 +100,8 @@ public class ArithCodeOutputStream extends OutputStream {
 	 *             encoder.
 	 */
 	public void write(byte[] bs, int off, int len) throws IOException {
-		while (off < len)
+		while (off < len) {
 			write(Converter.byteToInteger(bs[off++]));
-	}
-
-	/**
-	 * Writes the eight low-order bits of argument to the output stream as a
-	 * byte.
-	 * 
-	 * @param i
-	 *            Bits to write.
-	 * @throws IOException
-	 *             If there is an exception in writing to the underlying
-	 *             encoder.
-	 */
-	public void write(int i) throws IOException {
-		encode(i);
-	}
-
-	/**
-	 * Writes encoded symbol after necessary escapes to the underlying encoder.
-	 * 
-	 * @param symbol
-	 *            Symbol to encode.
-	 * @throws IOException
-	 *             If the underlying encoder throws an IOException.
-	 */
-	private void encode(int symbol) throws IOException {
-		while (_model.escaped(symbol)) {
-			// have already done complete walk to compute escape
-			_model.interval(ArithCodeModel.ESCAPE, _interval); 
-			_encoder.encode(_interval);
 		}
-		// have already done walk to element to compute escape
-		_model.interval(symbol, _interval); 
-		_encoder.encode(_interval);
 	}
 }
