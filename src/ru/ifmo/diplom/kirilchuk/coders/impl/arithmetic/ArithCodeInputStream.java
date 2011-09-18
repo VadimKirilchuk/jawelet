@@ -4,8 +4,8 @@ import java.io.*;
 
 import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
 import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitInputImpl;
+import ru.ifmo.diplom.kirilchuk.coders.util.Converter;
 
-import com.colloquial.arithcode.Converter;
 
 /**
  * <P>

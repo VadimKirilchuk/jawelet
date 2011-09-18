@@ -1,8 +1,8 @@
-package com.colloquial.arithcode;
+package ru.ifmo.diplom.kirilchuk.coders.util;
 
 /**
  * Package utility class for converting integers to bytes and back again in a
- * uniform manner. Could put this in ByteSet.
+ * uniform manner.
  * 
  * @author <a href="http://www.colloquial.com/carp/">Bob Carpenter</a>
  * @version 1.1
