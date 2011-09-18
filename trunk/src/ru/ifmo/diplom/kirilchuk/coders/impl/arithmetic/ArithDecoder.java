@@ -1,13 +1,17 @@
 package ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic;
 
-import java.io.IOException;
-import java.io.InputStream;
+import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderConstants.CODE_VALUE_BITS;
+import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderConstants.FIRST_QUARTER;
+import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderConstants.HALF;
+import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderConstants.THIRD_QUARTER;
+import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderConstants.TOP_VALUE;
 
+import java.io.IOException;
+
+import ru.ifmo.diplom.kirilchuk.coders.Decoder;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
 import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitInputImpl;
 
-
-import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderConstants.*;
 /**
  * <P>
  * Performs arithmetic decoding, converting bit input into cumulative
@@ -25,66 +29,54 @@ import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderCon
  * @see BitInputImpl
  * @since 1.0
  */
-public final class ArithDecoder {
+public final class ArithDecoder implements Decoder {
 
 	/**
-	 * Input stream from which to read bits.
+	 * The statistical model on which the decoder is based.
 	 */
-	private final BitInput	_in;
+	private final ArithCodeModel _model;
+
+	/**
+	 * The buffered next byte. If it's equal to -1, the end of stream has been
+	 * reached, otherwise next byte is the low order bits.
+	 */
+	private int _nextByte;
+
+	/**
+	 * Interval used for coding ranges.
+	 */
+	private final int[] _interval = new int[3];
 
 	/**
 	 * Current bits for decoding.
 	 */
-	private long			_value;
+	private long _value;
 
 	/**
 	 * The low bound on the current interval for coding. Initialized to zero.
 	 */
-	private long			_low;
+	private long _low;
 
 	/**
 	 * The high bound on the current interval for coding. Initialized to top
 	 * value possible.
 	 */
-	private long			_high			= TOP_VALUE;
+	private long _high = TOP_VALUE;
 
 	/**
 	 * Value will be <code>true</code> if the end of stream has been reached.
 	 */
-	private boolean			_endOfStream	= false;
+	private boolean _endOfStream = false;
 
 	/**
 	 * Number of bits that have been buffered.
 	 */
-	private int				_bufferedBits;
+	private int _bufferedBits;
 
-	/**
-	 * Construct an arithmetic decoder that reads from the given bit input.
-	 * 
-	 * @param in
-	 *            Bit input from which to read bits.
-	 * @throws IOException
-	 *             If there is an exception buffering from the bit input stream.
-	 * @since 1.1
-	 */
-	public ArithDecoder(BitInput in) throws IOException {
-		_in = in;
-		for (int i = 1; i <= CODE_VALUE_BITS; ++i) {
-			bufferBit();
-			++_bufferedBits;
-		}
-	}
+	private boolean initialized = false;
 
-	/**
-	 * Construct an arithmetic decoder that reads from the given input stream.
-	 * 
-	 * @param in
-	 *            Input stream from which to read.
-	 * @throws IOException
-	 *             If there is an exception buffering from input stream.
-	 */
-	public ArithDecoder(InputStream in) throws IOException {
-		this(new BitInputImpl(in));
+	public ArithDecoder(ArithCodeModel model) {
+		this._model = model;
 	}
 
 	/**
@@ -124,8 +116,8 @@ public final class ArithDecoder {
 	 *             underlying input stream.
 	 * @see #removeSymbolFromStream(long,long,long)
 	 */
-	public void removeSymbolFromStream(int[] counts) throws IOException {
-		removeSymbolFromStream(counts[0], counts[1], counts[2]);
+	public void removeSymbolFromStream(int[] counts, BitInput in) throws IOException {
+		removeSymbolFromStream(counts[0], counts[1], counts[2], in);
 	}
 
 	/**
@@ -143,7 +135,7 @@ public final class ArithDecoder {
 	 *             If there is an exception in buffering input from the
 	 *             underlying input stream.
 	 */
-	public void removeSymbolFromStream(long lowCount, long highCount, long totalCount) throws IOException {
+	public void removeSymbolFromStream(long lowCount, long highCount, long totalCount, BitInput in) throws IOException {
 		long range = _high - _low + 1;
 		_high = _low + (range * highCount) / totalCount - 1;
 		_low = _low + (range * lowCount) / totalCount;
@@ -161,21 +153,10 @@ public final class ArithDecoder {
 			} else {
 				return;
 			}
-			_low <<= 1; // = 2 * _low; // _low <<= 1;
-			_high = (_high << 1) + 1; // 2 * _high + 1; // _high = (_high<<1) +
-			// 1;
-			bufferBit();
+			_low <<= 1;
+			_high = (_high << 1) + 1;
+			bufferBit(in);
 		}
-	}
-
-	/**
-	 * Closes underlying bit output.
-	 * 
-	 * @throws IOException
-	 *             If there is an underlying I/O exception in the bit input.
-	 */
-	public void close() throws IOException {
-		_in.close();
 	}
 
 	/**
@@ -185,7 +166,7 @@ public final class ArithDecoder {
 	 *             If there is an <code>IOException</code> buffering from the
 	 *             underlying bit stream.
 	 */
-	private void bufferBit() throws IOException {
+	private void bufferBit(BitInput _in) throws IOException {
 		if (_in.endOfStream()) {
 			if (_bufferedBits == 0) {
 				_endOfStream = true;
@@ -199,6 +180,49 @@ public final class ArithDecoder {
 				++_value;
 			}
 		}
+	}
+
+	/**
+	 * Buffers the next byte into <code>_nextByte</code>.
+	 */
+	private void decodeNextByte(BitInput in) throws IOException {
+		if (_nextByte == ArithCodeModel.EOF) {
+			//if previous byte was EOF then return 
+			return;
+		}
+		
+		if (endOfStream()) {
+			//if we reach end of stream return and set next byte to EOF
+			_nextByte = ArithCodeModel.EOF;
+			return;
+		}
+		
+		while (true) {
+			_nextByte = _model.pointToSymbol(getCurrentSymbolCount(_model.totalCount()));
+			_model.interval(_nextByte, _interval);
+			removeSymbolFromStream(_interval, in);
+			//if _nextByte is ESCAPE then continue, otherwise return
+			if (_nextByte != ArithCodeModel.ESCAPE) {				
+				return;
+			}
+		}
+	}
+
+	@Override
+	public int decodeNext(BitInput in) throws IOException {
+		if (!initialized) {
+			for (int i = 1; i <= CODE_VALUE_BITS; ++i) {
+				bufferBit(in);
+				++_bufferedBits;
+			}
+			decodeNextByte(in);
+			initialized = true;
+		}
+//		System.out.println("VALUE: " + _value);
+		int result = _nextByte;
+		decodeNextByte(in);
+
+		return result;
 	}
 
 }

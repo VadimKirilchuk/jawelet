@@ -25,13 +25,12 @@ public class FusionCodeOutputStream extends OutputStream {
 	
 	@Override
 	public void flush() throws IOException {
-		super.flush();
 		out.flush();
 	}
 	
 	@Override
 	public void close() throws IOException {
-		super.close();
+		encoder.close(out);
 		out.close();
 	}
 

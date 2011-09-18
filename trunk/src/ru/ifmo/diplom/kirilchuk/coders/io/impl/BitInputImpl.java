@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
 
-
 /**
  * Reads input from an underlying input stream a bit at a time. Bits are
  * returned as booleans, with <code>true=1</code> and <code>false=0</code>.
@@ -22,22 +21,22 @@ public final class BitInputImpl implements BitInput {
 	/**
 	 * Underlying input stream.
 	 */
-	private final InputStream	_in;
+	private final InputStream _in;
 
 	/**
 	 * Buffered byte from which bits are read.
 	 */
-	private int					_nextByte;					// implied = 0;
+	private int _nextByte; // implied = 0;
 
 	/**
 	 * Position of next bit in the buffered byte.
 	 */
-	private int					_nextBitIndex;
+	private int _nextBitIndex;
 
 	/**
 	 * Set to true when all bits have been read.
 	 */
-	private boolean				_endOfStream	= false;
+	private boolean _endOfStream = false;
 
 	/**
 	 * Constructs a bit input from an underlying input stream.
@@ -53,40 +52,51 @@ public final class BitInputImpl implements BitInput {
 		readAhead();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.colloquial.arithcode.io.BitInput#available()
 	 */
 	public long available() throws IOException {
 		return endOfStream() ? 0 : 1;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.colloquial.arithcode.io.BitInput#close()
 	 */
 	public void close() throws IOException {
 		_in.close();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.colloquial.arithcode.io.BitInput#endOfStream()
 	 */
 	public boolean endOfStream() {
 		return _endOfStream;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.colloquial.arithcode.io.BitInput#readBit()
 	 */
 	public boolean readBit() throws IOException {
 		if (_nextBitIndex > 0) {
+//			System.out.print(((_nextByte & (1 << _nextBitIndex)) != 0) ? "1" : "0");
 			return ((_nextByte & (1 << _nextBitIndex--)) != 0);
 		}
-		
-		//taking last bit from buffered byte
+
+		// taking last bit from buffered byte
 		boolean result = ((_nextByte & 1) != 0);
-		
-		//buffering new byte
+
+		// buffering new byte
 		readAhead();
+		
+//		System.out.print(result ? "1" : "0");
 		return result;
 	}
 
@@ -100,13 +110,13 @@ public final class BitInputImpl implements BitInput {
 		if (_endOfStream) {
 			return;
 		}
-		
+
 		_nextByte = _in.read();
 		if (_nextByte == -1) {
 			_endOfStream = true;
 			return;
 		}
-		
+
 		_nextBitIndex = 7;
 	}
 
