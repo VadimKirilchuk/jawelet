@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
 
-
 /**
  * Writes to an underlying output stream a bit at a time. A bit is can be input
  * as a boolean, with <code>true=1</code> and <code>false=0</code>, or as a
@@ -15,28 +14,27 @@ import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
  * bits.
  * 
  * @author <a href="http://www.colloquial.com/carp/">Bob Carpenter</a>
- * @version 1.1
+ * @author Kirilchuk V.E.
  * @see BitInputImpl
- * @since 1.0
  */
 public class BitOutputImpl implements BitOutput {
-	
+
 	/**
 	 * Buffering for output. Bytes are represented as integers, primarily for
 	 * efficiency of bit fiddling and for compatibility with underlying output
 	 * stream.
 	 */
-	private int					_nextByte;
+	private int nextByte;
 
 	/**
 	 * The indexof the next bit to write into the next byte.
 	 */
-	private int					_nextBitIndex;
+	private int nextBitIndex;
 
 	/**
 	 * Underlying output stream.
 	 */
-	private final OutputStream	_out;
+	private final OutputStream out;
 
 	/**
 	 * Construct a bit output from the specified output stream.
@@ -45,28 +43,30 @@ public class BitOutputImpl implements BitOutput {
 	 *            Underlying output stream.
 	 */
 	public BitOutputImpl(OutputStream out) {
-		_out = out;
+		this.out = out;
 		reset();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.colloquial.arithcode.io.BitOutput#close()
-	 */
 	public void close() throws IOException {
-		if (_nextBitIndex < 7) {// there's something in the buffer
-			_out.write(_nextByte << _nextBitIndex); // shift to fill last byte
+		if (nextBitIndex < 7) {// there's something in the buffer
+			out.write(nextByte << nextBitIndex); // shift to fill last byte
+//			System.out.println("Writed: " + (byte)(nextByte << nextBitIndex));
 		}
-		_out.close();
+		out.close();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.colloquial.arithcode.io.BitOutput#flush()
 	 */
 	public void flush() throws IOException {
-		_out.flush();
+		out.flush();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.colloquial.arithcode.io.BitOutput#writeBit(boolean)
 	 */
 	public void writeBit(boolean bit) throws IOException {
@@ -77,37 +77,43 @@ public class BitOutputImpl implements BitOutput {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.colloquial.arithcode.io.BitOutput#writeBitTrue()
 	 */
 	public void writeTrueBit() throws IOException {
-		if (_nextBitIndex == 0) {
-			_out.write(_nextByte + 1);
+		if (nextBitIndex == 0) {
+			out.write(nextByte + 1);
+//			System.out.println("Writed: " + (byte)((nextByte + 1) & 0x00FF));
 			reset();
 		} else {
-			_nextByte = (_nextByte + 1) << 1;
-			--_nextBitIndex;
+			nextByte = (nextByte + 1) << 1;
+			--nextBitIndex;
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.colloquial.arithcode.io.BitOutput#writeBitFalse()
 	 */
 	public void writeFalseBit() throws IOException {
-		if (_nextBitIndex == 0) {
-			_out.write(_nextByte);
+		if (nextBitIndex == 0) {
+			out.write(nextByte);
+//			System.out.println("Writed: " + (byte)((nextByte) & 0x00FF));
 			reset();
 		} else {
-			_nextByte <<= 1;
-			--_nextBitIndex;
+			nextByte <<= 1;
+			--nextBitIndex;
 		}
 	}
-	
+
 	/**
 	 * Resets the bit buffer.
 	 */
 	private void reset() {
-		_nextByte = 0;
-		_nextBitIndex = 7;
+		nextByte = 0;
+		nextBitIndex = 7;
 	}
 }

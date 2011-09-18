@@ -1,6 +1,5 @@
 package ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -69,7 +68,6 @@ public class ArithCodeOutputStream extends OutputStream {
 	 *             If there is an exception flushing the underlying stream.
 	 */
 	public void flush() throws IOException {
-		encoder.flush();
 		out.flush();
 	}
 

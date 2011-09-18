@@ -1,13 +1,15 @@
 package ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic;
 
+import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderConstants.FIRST_QUARTER;
+import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderConstants.HALF;
+import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderConstants.THIRD_QUARTER;
+import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderConstants.TOP_VALUE;
+
 import java.io.IOException;
-import java.io.OutputStream;
 
 import ru.ifmo.diplom.kirilchuk.coders.Encoder;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
 import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitOutputImpl;
-
-import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderConstants.*;
 
 /**
  * <P>
@@ -21,68 +23,41 @@ import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderCon
  * Tutorial</a>.
  * 
  * @author <a href="http://www.colloquial.com/carp/">Bob Carpenter</a>
- * @version 1.1
+ * @author Kirilchuk V.E.
  * @see ArithDecoder
  * @see BitOutputImpl
- * @since 1.0
  */
 public final class ArithEncoder implements Encoder {
 
 	/**
 	 * The model on which the output stream is based.
 	 */
-	private final ArithCodeModel	_model;
+	private final ArithCodeModel model;
 
 	/**
 	 * Interval used for coding ranges.
 	 */
-	private final int[]				_interval	= new int[3];
-
-	/**
-	 * Bit output stream for writing encoding bits.
-	 */
-	// private final BitOutput _out;
+	private final int[] interval = new int[3];
 
 	/**
 	 * Number of bits beyond first bit that were normalized.
 	 */
-	private int						_bitsToFollow;
+	private int bitsToFollow;
 
 	/**
 	 * The low bound on the current interval for coding. Initialized to zero.
 	 */
-	private long					_low;
+	private long low;
 
 	/**
 	 * The high bound on the current interval for coding. Initialized to top
 	 * value possible.
 	 */
-	private long					_high		= TOP_VALUE;
+	private long high = TOP_VALUE;
 
 	public ArithEncoder(ArithCodeModel model) {
-		this._model = model;
+		this.model = model;
 	}
-
-	/**
-	 * Construct an arithmetic coder from a bit output.
-	 * 
-	 * @param out
-	 *            Underlying bit output.
-	 * @since 1.1
-	 */
-	// public ArithEncoder(BitOutput out) {
-	// _out = out;
-	// }
-
-	/**
-	 * Construct an arithmetic coder from an output stream.
-	 * 
-	 * @param out
-	 *            Underlying output stream.
-	 */
-	// public ArithEncoder(OutputStream out) {
-	// this(new BitOutputImpl(out));
-	// }
 
 	/**
 	 * Close the arithmetic encoder, writing all bits that are buffered and
@@ -93,24 +68,12 @@ public final class ArithEncoder implements Encoder {
 	 *             output stream.
 	 */
 	public void close(BitOutput out) throws IOException {
-		++_bitsToFollow; // need a final bit (not sure why)
-		if (_low < FIRST_QUARTER) {
+		++bitsToFollow; // need a final bit (not sure why)
+		if (low < FIRST_QUARTER) {
 			bitPlusFollowFalse(out);
 		} else {
 			bitPlusFollowTrue(out);
 		}
-		// _out.close();
-	}
-
-	/**
-	 * Flushes bit output.
-	 * 
-	 * @throws IOException
-	 *             If there is an exception flushing the underlying output
-	 *             stream.
-	 */
-	public void flush() throws IOException {
-		// _out.flush();
 	}
 
 	/**
@@ -144,25 +107,25 @@ public final class ArithEncoder implements Encoder {
 	 * @see #encode(int[])
 	 */
 	private void encode(int lowCount, int highCount, int totalCount, BitOutput out) throws IOException {
-		long range = _high - _low + 1;
-		_high = _low + (range * highCount) / totalCount - 1;
-		_low = _low + (range * lowCount) / totalCount;
+		long range = high - low + 1;
+		high = low + (range * highCount) / totalCount - 1;
+		low = low + (range * lowCount) / totalCount;
 		while (true) {
-			if (_high < HALF) {
+			if (high < HALF) {
 				bitPlusFollowFalse(out);
-			} else if (_low >= HALF) {
+			} else if (low >= HALF) {
 				bitPlusFollowTrue(out);
-				_low -= HALF;
-				_high -= HALF;
-			} else if (_low >= FIRST_QUARTER && _high < THIRD_QUARTER) {
-				++_bitsToFollow;
-				_low -= FIRST_QUARTER;
-				_high -= FIRST_QUARTER;
+				low -= HALF;
+				high -= HALF;
+			} else if (low >= FIRST_QUARTER && high < THIRD_QUARTER) {
+				++bitsToFollow;
+				low -= FIRST_QUARTER;
+				high -= FIRST_QUARTER;
 			} else {
 				return;
 			}
-			_low <<= 1;
-			_high = (_high << 1) + 1;
+			low <<= 1;
+			high = (high << 1) + 1;
 		}
 	}
 
@@ -175,14 +138,14 @@ public final class ArithEncoder implements Encoder {
 	 *             If the underlying encoder throws an IOException.
 	 */
 	public void encode(int symbol, BitOutput out) throws IOException {
-		while (_model.escaped(symbol)) {
+		while (model.escaped(symbol)) {
 			// have already done complete walk to compute escape
-			_model.interval(ArithCodeModel.ESCAPE, _interval);
-			encode(_interval, out);
+			model.interval(ArithCodeModel.ESCAPE, interval);
+			encode(interval, out);
 		}
 		// have already done walk to element to compute escape
-		_model.interval(symbol, _interval);
-		encode(_interval, out);
+		model.interval(symbol, interval);
+		encode(interval, out);
 	}
 
 	/**
@@ -191,11 +154,11 @@ public final class ArithEncoder implements Encoder {
 	 * 
 	 * @throws IOException
 	 *             If there is an exception writing a bit.
-	 * @since 1.1
 	 */
-	private void bitPlusFollowTrue(BitOutput _out) throws IOException {
-		for (_out.writeTrueBit(); _bitsToFollow > 0; --_bitsToFollow) {
-			_out.writeFalseBit();
+	private void bitPlusFollowTrue(BitOutput out) throws IOException {
+		out.writeTrueBit();
+		for (; bitsToFollow > 0; --bitsToFollow) {
+			out.writeFalseBit();
 		}
 	}
 
@@ -205,11 +168,11 @@ public final class ArithEncoder implements Encoder {
 	 * 
 	 * @throws IOException
 	 *             If there is an exception writing a bit.
-	 * @since 1.1
 	 */
-	private void bitPlusFollowFalse(BitOutput _out) throws IOException {
-		for (_out.writeFalseBit(); _bitsToFollow > 0; --_bitsToFollow) {
-			_out.writeTrueBit();
+	private void bitPlusFollowFalse(BitOutput out) throws IOException {
+		out.writeFalseBit();
+		for (; bitsToFollow > 0; --bitsToFollow) {
+			out.writeTrueBit();
 		}
 	}
 }
