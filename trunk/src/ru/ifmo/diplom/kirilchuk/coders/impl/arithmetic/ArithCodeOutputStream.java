@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
+import ru.ifmo.diplom.kirilchuk.coders.util.Converter;
 
-import com.colloquial.arithcode.Converter;
 
 /**
  * <P>
