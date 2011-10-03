@@ -44,7 +44,7 @@ public class LeGallWaveletTransform extends DWTransform1D {
         Filter lowReconstructionFilter = filtersFactory.getLowReconstructionFilter();
         Filter highReconstructionFilter = filtersFactory.getHighReconstructionFilter();
         
-        while(approxLength <= data.length/2) {
+//        while(approxLength <= data.length/2) {
             double[] approximation = new double[approxLength];
             System.arraycopy(data, 0, approximation, 0, approxLength);
 
@@ -71,8 +71,8 @@ public class LeGallWaveletTransform extends DWTransform1D {
             for (int index = 0; index < approxLength * 2; index++) {
               data[index] = extendedApproximation[index] + extendedDetails[index];
             }
-            approxLength *= 2; // upsampled Low(level) + upsampled High(level) = Low(level-1)
-        }
+//            approxLength *= 2; // upsampled Low(level) + upsampled High(level) = Low(level-1)
+//        }
     }
 
     /**

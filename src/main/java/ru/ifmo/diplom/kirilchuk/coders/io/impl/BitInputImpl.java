@@ -3,6 +3,9 @@ package ru.ifmo.diplom.kirilchuk.coders.io.impl;
 import java.io.InputStream;
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
 
 /**
@@ -17,7 +20,9 @@ import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
  * @since 1.0
  */
 public final class BitInputImpl implements BitInput {
-
+	private static final Logger LOG = LoggerFactory.getLogger(BitInputImpl.class);
+	
+	
 	/**
 	 * Underlying input stream.
 	 */
@@ -86,8 +91,10 @@ public final class BitInputImpl implements BitInput {
 	 */
 	public boolean readBit() throws IOException {
 		if (_nextBitIndex > 0) {
-//			System.out.print(((_nextByte & (1 << _nextBitIndex)) != 0) ? "1" : "0");
-			return ((_nextByte & (1 << _nextBitIndex--)) != 0);
+			boolean result = ((_nextByte & (1 << _nextBitIndex--)) != 0);
+			
+			LOG.debug("Read bit: {}", result ? "1" : "0");
+			return result;
 		}
 
 		// taking last bit from buffered byte
@@ -96,7 +103,7 @@ public final class BitInputImpl implements BitInput {
 		// buffering new byte
 		readAhead();
 		
-//		System.out.print(result ? "1" : "0");
+		LOG.debug("Read bit: {}", result ? "1" : "0");
 		return result;
 	}
 
@@ -107,6 +114,7 @@ public final class BitInputImpl implements BitInput {
 	 *             If there is an IOException reading from the stream.
 	 */
 	private void readAhead() throws IOException {
+		LOG.debug("Buffering next byte");
 		if (_endOfStream) {
 			return;
 		}

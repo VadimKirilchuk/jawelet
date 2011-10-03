@@ -1,5 +1,10 @@
 package ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic;
 
+import java.util.Arrays;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * <P>
@@ -10,11 +15,10 @@ package ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic;
  * up. Estimation is by frequency (also known as a maximum likelihood estimate).
  * 
  * @author <a href="http://www.colloquial.com/carp/">Bob Carpenter</a>
- * @version 1.1
- * @since 1.0
  */
 public final class AdaptiveUnigramModel implements ArithCodeModel {
-
+	private static final Logger LOG = LoggerFactory.getLogger(AdaptiveUnigramModel.class);
+	
 	/**
 	 * Maximum count before rescaling.
 	 */
@@ -83,12 +87,16 @@ public final class AdaptiveUnigramModel implements ArithCodeModel {
 
 	// specified in ArithCodeModel
 	public void interval(int symbol, int[] result) {
+		LOG.debug("Calculate counts for given symbol({})", symbol);
+		
 		if (symbol == EOF) {
 			symbol = EOF_INDEX;
 		}
 		result[0] = lowCount(symbol);
 		result[1] = highCount(symbol);
 		result[2] = totalCount();
+		LOG.debug("Calculated counts: {}", Arrays.toString(result));
+		
 		increment(symbol);
 	}
 

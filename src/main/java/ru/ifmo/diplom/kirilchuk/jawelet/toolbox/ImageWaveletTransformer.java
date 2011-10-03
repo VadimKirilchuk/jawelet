@@ -20,14 +20,15 @@ public class ImageWaveletTransformer {
 		originalHeight = image.getHeight();
 		
 		transformationData = ImageUtils.getGrayscaleImageData(image);
-		transform.decomposeInplace(transformationData);		
+		transform.decomposeInplace(transformationData, level);
+		
 		return new TransformationResult(transformationData, 0, level);
 	}
 	
 	public TransformationResult reconstructTransform(int fromLevel) {
 		Assert.checkNotNull(transformationData, "Decompose image first!");
 
-		transform.reconstructInplace(transformationData);
+		transform.reconstructInplace(transformationData, fromLevel);
 		return new TransformationResult(transformationData, 0, 0);
 	}
 	

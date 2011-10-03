@@ -145,7 +145,7 @@ public abstract class DWTransform1D {
      *
      * @param input data vector.
      * @param approximationSize size of last approximation data.
-     */
+     */  
     public void reconstructInplace(double[] input, int approximationSize) {
         throw new UnsupportedOperationException("Unsupported operation"); //TODO
     }
