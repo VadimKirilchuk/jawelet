@@ -3,6 +3,9 @@ package ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
 import ru.ifmo.diplom.kirilchuk.coders.util.Converter;
 
@@ -16,12 +19,13 @@ import ru.ifmo.diplom.kirilchuk.coders.util.Converter;
  * <code>java.util.zip.GZIPOutputStream</code>.
  * 
  * @author <a href="http://www.colloquial.com/carp/">Bob Carpenter</a>
- * @version 1.1
+ * @author Kirilchuk V.E.
  * @see ArithCodeInputStream
  * @see ArithCodeModel
  * @since 1.0
  */
 public class ArithCodeOutputStream extends OutputStream {
+	private static final Logger LOG = LoggerFactory.getLogger(ArithCodeOutputStream.class);
 
 	private BitOutput out;
 
@@ -45,7 +49,7 @@ public class ArithCodeOutputStream extends OutputStream {
 	 *             If there is an exception in writing to the underlying
 	 *             encoder.
 	 */
-	public void write(int i) throws IOException {
+	public void write(int i) throws IOException {		
 		encoder.encode(i, out);
 	}
 
@@ -56,7 +60,9 @@ public class ArithCodeOutputStream extends OutputStream {
 	 *             If there is an exception in the underlying encoder.
 	 */
 	public void close() throws IOException {
+		LOG.debug("Encoding EOF");
 		write(ArithCodeModel.EOF); // must code EOF to allow decoding to halt
+		LOG.debug("Closing encoder and out");
 		encoder.close(out); // to allow encoder to output buffered bits
 		out.close();
 	}
@@ -79,6 +85,7 @@ public class ArithCodeOutputStream extends OutputStream {
 	 * @throws IOException
 	 *             If there is an exception in writing to the underlying
 	 *             encoder.
+	 * @deprecated don`t use
 	 */
 	public void write(byte[] bs) throws IOException {
 		write(bs, 0, bs.length);
@@ -96,6 +103,7 @@ public class ArithCodeOutputStream extends OutputStream {
 	 * @throws IOException
 	 *             If there is an exception in writing to the underlying
 	 *             encoder.
+	 * @deprecated dont use             
 	 */
 	public void write(byte[] bs, int off, int len) throws IOException {
 		while (off < len) {

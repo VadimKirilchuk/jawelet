@@ -18,6 +18,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JSpinner;
 
 import ru.ifmo.diplom.kirilchuk.jawelet.gui.util.ImageUtils;
 import ru.ifmo.diplom.kirilchuk.jawelet.gui.util.SwingUtils;
@@ -35,9 +36,10 @@ public class JaweletMainFrame extends JFrame {
 	
 	private final ImageWaveletTransformer transformer = new ImageWaveletTransformer();
 
-	private final JLabel  imageLabel        = new JLabel();
-	private final JButton decomposeButton   = new JButton("Decompose");
-	private final JButton reconstructButton = new JButton("Reconstruct");
+	private final JLabel   imageLabel        = new JLabel();
+	private final JSpinner spinner           = new JSpinner();
+	private final JButton  decomposeButton   = new JButton("Decompose");
+	private final JButton  reconstructButton = new JButton("Reconstruct");
 
 	private BufferedImage image;
 
@@ -64,6 +66,7 @@ public class JaweletMainFrame extends JFrame {
 		decomposeButton.addActionListener(transformButtonListener);
 		reconstructButton.addActionListener(transformButtonListener);
 
+		rightBox.add(spinner);
 		rightBox.add(decomposeButton);
 		rightBox.add(reconstructButton);
 
@@ -137,13 +140,15 @@ public class JaweletMainFrame extends JFrame {
 
 	private class TransformButtonListener implements ActionListener {
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) {			
 			double[][] result;
-			if (e.getSource() == decomposeButton) {//TODO level option!
-				result = transformer.decomposeTransform(image, 1).getData();
+			if (e.getSource() == decomposeButton) {
+				int level = (Integer) spinner.getValue();
+				result = transformer.decomposeTransform(image, level).getData();
 				result = ImageUtils.grayscaleNormalize(result);
 			} else {
-				result = transformer.reconstructTransform(1).getData();
+				int level = (Integer) spinner.getValue();
+				result = transformer.reconstructTransform(level).getData();
 			}
 			ImageUtils.setNewGrayscaleImageData(image, result);
 			imageLabel.repaint();

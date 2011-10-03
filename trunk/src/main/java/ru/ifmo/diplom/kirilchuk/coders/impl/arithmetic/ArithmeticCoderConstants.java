@@ -5,8 +5,6 @@ package ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic;
  * arithmetic decoding and arithmetic coding.
  * 
  * @author <a href="http://www.colloquial.com/carp/">Bob Carpenter</a>
- * @version 1.1
- * @since 1.0
  */
 final class ArithmeticCoderConstants {
 
@@ -36,8 +34,5 @@ final class ArithmeticCoderConstants {
 	 */
 	static final long	THIRD_QUARTER	= 3 * FIRST_QUARTER;
 
-	/**
-	 * Construct a generic arithmetic coder.
-	 */
 	private ArithmeticCoderConstants() {}
 }

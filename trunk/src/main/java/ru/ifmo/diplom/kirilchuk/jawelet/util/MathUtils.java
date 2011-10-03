@@ -12,13 +12,33 @@ public final class MathUtils {
     private MathUtils() {}
     
     /**
+     * Returns power of two.
+     * 
+     * @param power n in 2^n
+     * @return power of two 
+     */
+    public static int getTwoInPower(int power) {
+    	int result = 1;
+    	if (power == 0) {
+    		return 1;
+    	}
+    	
+    	while(power > 0) {
+    		result <<= 1;
+    		power--;
+    	}
+    	
+    	return result;
+    }
+    
+    /**
      * Returns n for 2^n value.
      * 
      * @param value the power of two integer.
      * @return n for 2^n value.
      */
     public static int getExact2Power(int powerOfTwoValue) {
-        Assert.argCondition(powerOfTwoValue > 0, "Argument must be positive.");
+        Assert.argCondition(powerOfTwoValue >= 0, "Argument must be positive.");
         Assert.valueIs2Power(powerOfTwoValue, "Value");
 
         int n = -1;

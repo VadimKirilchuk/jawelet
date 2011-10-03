@@ -8,6 +8,9 @@ import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderCon
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ru.ifmo.diplom.kirilchuk.coders.Decoder;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
 import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitInputImpl;
@@ -24,13 +27,13 @@ import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitInputImpl;
  * Tutorial</a>.
  * 
  * @author <a href="http://www.colloquial.com/carp/">Bob Carpenter</a>
- * @version 1.1
+ * @author Kirilchuk V.E.
  * @see ArithEncoder
  * @see BitInputImpl
- * @since 1.0
  */
 public final class ArithDecoder implements Decoder {
-
+	private static final Logger LOG = LoggerFactory.getLogger(ArithDecoder.class);
+	
 	/**
 	 * The statistical model on which the decoder is based.
 	 */
@@ -186,6 +189,7 @@ public final class ArithDecoder implements Decoder {
 	 * Buffers the next byte into <code>_nextByte</code>.
 	 */
 	private void decodeNextByte(BitInput in) throws IOException {
+		LOG.debug("Decoding next byte from input. Current cached byte: {}", _nextByte);
 		if (_nextByte == ArithCodeModel.EOF) {
 			//if previous byte was EOF then return 
 			return;

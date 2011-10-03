@@ -14,7 +14,6 @@ import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
  * <pre>Known implementations:
  *   {@link MonotoneEncoder}
  *   {@link ArithEncoder}
- *   {@link FusionEncoder}
  * </pre>
  * @see Decoder
  * @author Kirilchuk V.E.

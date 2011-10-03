@@ -7,6 +7,9 @@ import static ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithmeticCoderCon
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ru.ifmo.diplom.kirilchuk.coders.Encoder;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
 import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitOutputImpl;
@@ -19,8 +22,10 @@ import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitOutputImpl;
  * range being <code>[low/total,high/total)</code>.
  * 
  * <P>
- * For more details, see <a href="../../../tutorial.html">The Arithemtic Coding
- * Tutorial</a>.
+ * For more details, see 
+ * <a href="http://www.colloquial.com/ArithmeticCoding/javadoc/tutorial.html">
+ * The Arithmetic Coding Tutorial
+ * </a>.
  * 
  * @author <a href="http://www.colloquial.com/carp/">Bob Carpenter</a>
  * @author Kirilchuk V.E.
@@ -29,6 +34,8 @@ import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitOutputImpl;
  */
 public final class ArithEncoder implements Encoder {
 
+	private static final Logger LOG = LoggerFactory.getLogger(ArithEncoder.class);
+	
 	/**
 	 * The model on which the output stream is based.
 	 */
@@ -60,9 +67,9 @@ public final class ArithEncoder implements Encoder {
 	}
 
 	/**
-	 * Close the arithmetic encoder, writing all bits that are buffered and
-	 * closing the underlying output streams.
+	 * Close the arithmetic encoder, writing all bits that are buffered.
 	 * 
+	 * @param out output to write buffered bits
 	 * @throws IOException
 	 *             If there is an exception writing to or closing the underlying
 	 *             output stream.
@@ -138,10 +145,17 @@ public final class ArithEncoder implements Encoder {
 	 *             If the underlying encoder throws an IOException.
 	 */
 	public void encode(int symbol, BitOutput out) throws IOException {
-		while (model.escaped(symbol)) {
+		LOG.debug("Encoding {}", symbol);
+		
+		boolean noCountInterval = model.escaped(symbol);
+		LOG.debug("Is count interval for gived symbol found? {}", !noCountInterval);
+		while (noCountInterval) {
 			// have already done complete walk to compute escape
 			model.interval(ArithCodeModel.ESCAPE, interval);
 			encode(interval, out);
+			
+			noCountInterval = model.escaped(symbol);
+			LOG.debug("No count interval for gived symbol {}", noCountInterval);
 		}
 		// have already done walk to element to compute escape
 		model.interval(symbol, interval);
