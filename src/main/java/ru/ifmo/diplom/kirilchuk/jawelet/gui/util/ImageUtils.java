@@ -32,7 +32,7 @@ public final class ImageUtils {
     }
 
     /**
-     * Saves image to specified location.
+     * Saves image as bitmap to specified location.
      *
      * @param image image to save.
      * @param filePath path to destination.
@@ -43,11 +43,24 @@ public final class ImageUtils {
         ImageIO.write(image, "bmp", file);
     }
 
+    /**
+     * Checks whenever image is grayscale.
+     * 
+     * @param image to check
+     * @return true if image is grayscale, false otherwise
+     */
     public static boolean isGrayScale(BufferedImage image) {
+    	Assert.checkNotNull(image, "Image can`t be null.");
         int type = image.getType();
         return (type == BufferedImage.TYPE_BYTE_GRAY || type == BufferedImage.TYPE_USHORT_GRAY);
     }
 
+    /**
+     * Extracts data from grayscale image and returns it as 2d array of doubles.
+     * 
+     * @param image image to get data from
+     * @return image data as double array
+     */
     public static double[][] getGrayscaleImageData(BufferedImage image) {
         Assert.checkNotNull(image, "Image can`t be null.");
         Assert.argCondition(isGrayScale(image), "Image must be grayscale.");
@@ -69,6 +82,12 @@ public final class ImageUtils {
         return result;
     }
 
+    /**
+     * Changes data of specified image to given one.
+     * 
+     * @param image image to change data in
+     * @param imageData data to set in image
+     */
 	public static void setNewGrayscaleImageData(BufferedImage image, double[][] imageData) {
         Assert.checkNotNull(image, "Image can`t be null.");
         Assert.argCondition(isGrayScale(image), "Image must be grayscale.");
@@ -85,11 +104,25 @@ public final class ImageUtils {
         image.getRaster().setPixels(0, 0, dataWidth, dataHeigth, data);
 	}
 	
+	/**
+	 * Helper method to change colorspace of image.
+	 * 
+	 * @param source image to change
+	 * @param colorSpace target colorspace
+	 * @return image with changed colorspace
+	 */
 	public static BufferedImage changeColorSpace(BufferedImage source, ColorSpace colorSpace) {
 		BufferedImageOp operation = new ColorConvertOp(colorSpace, null);
 		return operation.filter(source, null);
 	}
 	
+	/**
+	 * Tryes to create grayscale copy of given image. If image is already grayscale 
+	 * then returns itself.
+	 * 
+	 * @param source image to create copy from
+	 * @return grayscale copy of given image or itself if it is already grayscale
+	 */
 	public static BufferedImage tryCreateGrayscaleCopy(BufferedImage source) {
 		Assert.checkNotNull(source, "Source image can`t be null.");
 		
