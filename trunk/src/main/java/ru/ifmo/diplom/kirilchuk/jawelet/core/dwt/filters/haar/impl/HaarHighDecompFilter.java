@@ -9,7 +9,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters.Filter;
  */
 public class HaarHighDecompFilter extends Filter {
 
-	private static final double[] COEFFICIENTS = { -1 / Math.sqrt(2), 1 / Math.sqrt(2) };// as
+	private static final double[] COEFFICIENTS = { -1 / Math.sqrt(2), 1 / Math.sqrt(2) };
 
 	public HaarHighDecompFilter() {
 		super(COEFFICIENTS);

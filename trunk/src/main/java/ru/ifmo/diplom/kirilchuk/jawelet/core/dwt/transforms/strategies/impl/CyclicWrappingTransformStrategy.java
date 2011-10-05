@@ -12,7 +12,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.CyclicEndExtens
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.ZeroPaddingToEven;
 
 /**
- * @deprecated not works with asymmetric filters.
+ * @deprecated not works with 5/3 and other odd length filters.
  * @author Kirilchuk V.E.
  */
 public class CyclicWrappingTransformStrategy implements DWTransformStrategy {

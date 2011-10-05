@@ -8,17 +8,31 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 /**
+ * Class with utilities for swing related stuff.
  * 
  * @author Kirilchuk V.E.
  */
 public final class SwingUtils {
-	private SwingUtils() {
-	}
+	
+	private SwingUtils() {}
 
+	/**
+	 * Shows error in error dialog.
+	 * 
+	 * @param parent determines the Frame in which the dialog is displayed; if null, or if the 
+	 * parentComponent has no Frame, a default Frame is used
+	 * @param message error message
+	 */
 	public static void showError(Component parent, String message) {
 		JOptionPane.showMessageDialog(parent, message, "Error", JOptionPane.ERROR_MESSAGE);
 	}
 
+	/**
+	 * Dialog for choosing file.
+	 * 
+	 * @param parent the parent component of the dialog, can be null
+	 * @return selected file or null if no file is selected
+	 */
 	public static File chooseImageFile(Component parent) {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setFileFilter(new FileFilter() {

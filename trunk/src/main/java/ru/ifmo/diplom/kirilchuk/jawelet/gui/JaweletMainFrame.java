@@ -25,6 +25,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.gui.util.SwingUtils;
 import ru.ifmo.diplom.kirilchuk.jawelet.toolbox.ImageWaveletTransformer;
 
 /**
+ * Main frame
  * 
  * @author Kirilchuk V.E.
  */
@@ -43,6 +44,9 @@ public class JaweletMainFrame extends JFrame {
 
 	private BufferedImage image;
 
+	/**
+	 * Creates frame.
+	 */
 	public JaweletMainFrame() {
 		super("Jawelet");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -142,12 +146,13 @@ public class JaweletMainFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {			
 			double[][] result;
+			int level;
 			if (e.getSource() == decomposeButton) {
-				int level = (Integer) spinner.getValue();
+				level = (Integer) spinner.getValue();
 				result = transformer.decomposeTransform(image, level).getData();
 				result = ImageUtils.grayscaleNormalize(result);
 			} else {
-				int level = (Integer) spinner.getValue();
+				level = (Integer) spinner.getValue();
 				result = transformer.reconstructTransform(level).getData();
 			}
 			ImageUtils.setNewGrayscaleImageData(image, result);

@@ -19,6 +19,13 @@ public interface DWTransformStrategy {
 	 */
     void decomposeInplace(double[] input, Filter lowDecompositionFilter, Filter highDecompositionFilter);
 
+	/**
+	 * Reconstructing 1 level transform inplace, changing given input.
+	 * 
+	 * @param input data to process.
+	 * @param lowDecompositionFilter low reconstruction filter.
+	 * @param highDecompositionFilter high reconstruction filter.
+	 */
     void reconstructInplace(double[] input, Filter lowReconstructionFilter, Filter highReconstructionFilter);
 
     double[] decomposeLow(double[] data, Filter lowDecompositionFilter);
