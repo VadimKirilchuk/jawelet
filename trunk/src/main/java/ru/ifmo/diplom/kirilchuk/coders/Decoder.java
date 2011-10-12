@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithDecoder;
 import ru.ifmo.diplom.kirilchuk.coders.impl.fusion.FusionDecoder;
-import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneDecoder;
+import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein.LevenshteinDecoder;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
 
 /**
@@ -12,7 +12,7 @@ import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
  * 
  * <p>
  * <pre>Known implementations:
- *   {@link MonotoneDecoder}
+ *   {@link LevenshteinDecoder}
  *   {@link ArithDecoder}
  * </pre>
  * @see Encoder

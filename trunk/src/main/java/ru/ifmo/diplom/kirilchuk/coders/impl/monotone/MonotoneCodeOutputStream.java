@@ -3,15 +3,16 @@ package ru.ifmo.diplom.kirilchuk.coders.impl.monotone;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import ru.ifmo.diplom.kirilchuk.coders.Encoder;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
 
 
 public class MonotoneCodeOutputStream extends OutputStream {
 	
-	private MonotoneEncoder encoder;
+	private Encoder encoder;
 	private BitOutput out;
 	
-	public MonotoneCodeOutputStream(MonotoneEncoder encoder, BitOutput out) {
+	public MonotoneCodeOutputStream(Encoder encoder, BitOutput out) {
 		this.encoder = encoder;
 		this.out = out;
 	}

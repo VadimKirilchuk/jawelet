@@ -1,4 +1,4 @@
-package ru.ifmo.diplom.kirilchuk.coders.impl.monotone;
+package ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ import ru.ifmo.diplom.kirilchuk.coders.Encoder;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
 
 
-public class MonotoneEncoder implements Encoder {
+public class LevenshteinEncoder implements Encoder {
 
 	private static final int	BITS_IN_INTEGER	= 32;
 

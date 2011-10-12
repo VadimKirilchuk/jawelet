@@ -1,4 +1,4 @@
-package ru.ifmo.diplom.kirilchuk.coders.impl.monotone;
+package ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ import ru.ifmo.diplom.kirilchuk.coders.Decoder;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
 
 
-public class MonotoneDecoder implements Decoder {
+public class LevenshteinDecoder implements Decoder {
 
 	public int decodeNext(BitInput in) throws IOException {
 		boolean isPositive = in.readBit();

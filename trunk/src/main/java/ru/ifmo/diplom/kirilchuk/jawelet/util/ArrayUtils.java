@@ -36,7 +36,14 @@ public class ArrayUtils {
 		return result;
 	}
 	
-	public static int[][] convert(double[][] array) {//TODO: this is not even rounding!!!
+	/**
+	 * Be careful! This method just taking integer part from doubles. It doesn`t
+	 * do any rounding or other things.  
+	 * 
+	 * @param array array to convert
+	 * @return array of integers converted from double array
+	 */
+	public static int[][] convert(double[][] array) {
 		int[][] result = new int[array.length][];
 		for(int row = 0; row < array.length; ++row) {
 			result[row] = new int[array[row].length];
