@@ -1,20 +1,20 @@
-package ru.ifmo.diplom.kirilchuk.coders.impl.monotone;
+package ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import ru.ifmo.diplom.kirilchuk.coders.StringBitInput;
-import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneDecoder;
+import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein.LevenshteinDecoder;
 
 import static org.junit.Assert.*;
 
-public class MonotoneDecoderTest {
+public class LevenshteinDecoderTest {
 
-	private MonotoneDecoder decoder;
+	private LevenshteinDecoder decoder;
 	
 	@Before
 	public void before() {
-		decoder = new MonotoneDecoder();
+		decoder = new LevenshteinDecoder();
 	}
 	
 	@Test

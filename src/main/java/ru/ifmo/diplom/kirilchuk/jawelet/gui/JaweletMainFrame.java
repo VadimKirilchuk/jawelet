@@ -23,6 +23,7 @@ import javax.swing.JSpinner;
 import ru.ifmo.diplom.kirilchuk.jawelet.gui.util.ImageUtils;
 import ru.ifmo.diplom.kirilchuk.jawelet.gui.util.SwingUtils;
 import ru.ifmo.diplom.kirilchuk.jawelet.toolbox.ImageWaveletTransformer;
+import ru.ifmo.diplom.kirilchuk.jawelet.util.ArrayUtils;
 
 /**
  * Main frame
@@ -120,10 +121,26 @@ public class JaweletMainFrame extends JFrame {
 					gui.setImage(image);
 				} catch (IOException ex) {
 					SwingUtils.showError(gui, ex.getMessage());
+				} catch (Exception e2) {
+					SwingUtils.showError(gui, e2.getMessage());
 				}
 			}
 		});
 		fileMenu.add(loadItem);
+		
+		JMenuItem saveItem = new JMenuItem("Save image as bmp");
+		saveItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JaweletMainFrame gui = JaweletMainFrame.this;
+				try {
+					ImageUtils.saveAsBitmap(image, "/home/chibis/Desktop/out.bmp");
+				} catch (IOException ex) {
+					SwingUtils.showError(gui, ex.getMessage());
+				}
+			}
+		});
+		fileMenu.add(saveItem);
 		fileMenu.add(new JSeparator());
 
 		JMenuItem exitItem = new JMenuItem("Exit");

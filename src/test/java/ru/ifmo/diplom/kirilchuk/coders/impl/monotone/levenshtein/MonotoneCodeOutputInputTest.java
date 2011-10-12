@@ -1,4 +1,4 @@
-package ru.ifmo.diplom.kirilchuk.coders.impl.monotone;
+package ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -10,8 +10,8 @@ import org.junit.Test;
 
 import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneCodeInputStream;
 import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneCodeOutputStream;
-import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneDecoder;
-import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneEncoder;
+import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein.LevenshteinDecoder;
+import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein.LevenshteinEncoder;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
 import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitInputImpl;
@@ -20,13 +20,13 @@ import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitOutputImpl;
 
 public class MonotoneCodeOutputInputTest {
 	
-	private MonotoneEncoder encoder;
-	private MonotoneDecoder decoder;
+	private LevenshteinEncoder encoder;
+	private LevenshteinDecoder decoder;
 	
 	@Before 
 	public void before() {
-		encoder = new MonotoneEncoder();
-		decoder = new MonotoneDecoder();
+		encoder = new LevenshteinEncoder();
+		decoder = new LevenshteinDecoder();
 	}
 	
 	@Test

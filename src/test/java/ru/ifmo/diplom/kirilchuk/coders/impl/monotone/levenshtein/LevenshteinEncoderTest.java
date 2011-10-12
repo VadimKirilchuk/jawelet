@@ -1,4 +1,4 @@
-package ru.ifmo.diplom.kirilchuk.coders.impl.monotone;
+package ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,15 +6,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ru.ifmo.diplom.kirilchuk.coders.StringBitOutput;
-import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneEncoder;
+import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein.LevenshteinEncoder;
 
-public class MonotoneEncoderTest {
+public class LevenshteinEncoderTest {
 
-	private MonotoneEncoder encoder;
+	private LevenshteinEncoder encoder;
 	
 	@Before
 	public void before() {
-		encoder = new MonotoneEncoder();
+		encoder = new LevenshteinEncoder();
 	}
 	
 	@Test(expected = IllegalArgumentException.class)

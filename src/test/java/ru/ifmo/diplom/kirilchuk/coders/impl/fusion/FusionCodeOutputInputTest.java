@@ -18,8 +18,8 @@ import ru.ifmo.diplom.kirilchuk.coders.Encoder;
 import ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.AdaptiveUnigramModel;
 import ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithDecoder;
 import ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithEncoder;
-import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneDecoder;
-import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneEncoder;
+import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein.LevenshteinDecoder;
+import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein.LevenshteinEncoder;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
 import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitInputImpl;
@@ -34,11 +34,11 @@ public class FusionCodeOutputInputTest {
 	@Before
 	public void before() {
 		ArithEncoder arithEncoder = new ArithEncoder(new AdaptiveUnigramModel());
-		Encoder monotoneEncoder = new MonotoneEncoder();
+		Encoder monotoneEncoder = new LevenshteinEncoder();
 		encoder = new FusionEncoder(arithEncoder, monotoneEncoder);
 
 		ArithDecoder arithDecoder = new ArithDecoder(new AdaptiveUnigramModel());
-		Decoder monotoneDecoder = new MonotoneDecoder();
+		Decoder monotoneDecoder = new LevenshteinDecoder();
 		decoder = new FusionDecoder(arithDecoder, monotoneDecoder);
 	}
 	
