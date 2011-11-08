@@ -10,10 +10,12 @@ import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters.Filter;
  */
 public class LeGallLowReconstrFilter extends Filter {
 
+	private static final double RECONSTRUCTION_DIVIDER = 16;
+	
     private static final double[] COEFFICIENTS = {
-        2.0 / SQRT_32,
-        4.0 / SQRT_32,
-        2.0 / SQRT_32};
+        2.0 / RECONSTRUCTION_DIVIDER,
+        4.0 / RECONSTRUCTION_DIVIDER,
+        2.0 / RECONSTRUCTION_DIVIDER};
 
     public LeGallLowReconstrFilter() {
     	super(COEFFICIENTS);

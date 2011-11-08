@@ -46,7 +46,8 @@ public final class SwingUtils {
 				String name = f.getName();
 				boolean accepted = f.isDirectory()  
 						|| name.endsWith(".jpg") 
-						|| name.endsWith(".jpeg") 
+						|| name.endsWith(".jpeg")
+						|| name.endsWith(".jp2")
 						|| name.endsWith(".png")
 						|| name.endsWith(".bmp");
 				return accepted;
