@@ -17,6 +17,7 @@ public class Elias3PartEncoder implements Encoder {
 
 	private static final int	BITS_IN_INTEGER	= 32;
 
+	//TODO: not works for +-1
 	public void encode(int value, BitOutput out) throws IOException {
 		if (value == 0 || value == Integer.MIN_VALUE) {
 			throw new IllegalArgumentException("This coder does not support value: " + value);

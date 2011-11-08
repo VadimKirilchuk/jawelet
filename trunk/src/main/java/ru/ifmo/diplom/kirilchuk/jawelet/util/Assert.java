@@ -1,11 +1,11 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.util;
 
 /**
- *
+ * 
  * @author Kirilchuk V.E.
  */
 public class Assert {
-
+        
     public static void valueIs2Power(int value) throws IllegalArgumentException {
         valueIs2Power(value, "Data length");
     }
@@ -31,8 +31,21 @@ public class Assert {
     }
 
     public static void argCondition(boolean condition, String errorMessage) {
-        if(!condition) {
+        if (!condition) {
             throw new IllegalArgumentException(errorMessage);
         }
+    }
+
+    public static boolean isEqual(int[][] expected, int[][] result, int startx, int starty, int endx, int endy) {
+        int shift = endx - startx;
+        for (int k = startx; k < endx; ++k) {
+            for (int i = starty; i < endy; ++i) {
+                if (expected[k][i] != result[k - shift][i - shift]) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
     }
 }

@@ -10,12 +10,14 @@ import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters.Filter;
  */
 public class LeGallLowDecompFilter extends Filter {
 
+	private static final double DECOMPOSITION_DIVIDER = 2;
+	
     private static final double[] COEFFICIENTS = {
-        -1.0 / SQRT_32,
-         2.0 / SQRT_32,
-         6.0 / SQRT_32,
-         2.0 / SQRT_32,
-        -1.0 / SQRT_32
+        -1.0 / DECOMPOSITION_DIVIDER,
+         2.0 / DECOMPOSITION_DIVIDER,
+         6.0 / DECOMPOSITION_DIVIDER,
+         2.0 / DECOMPOSITION_DIVIDER,
+        -1.0 / DECOMPOSITION_DIVIDER
     };
     
     public LeGallLowDecompFilter() {

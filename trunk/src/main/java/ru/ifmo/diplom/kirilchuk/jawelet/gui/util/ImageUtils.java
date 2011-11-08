@@ -104,6 +104,16 @@ public final class ImageUtils {
         image.getRaster().setPixels(0, 0, dataWidth, dataHeigth, data);
 	}
 	
+	public static BufferedImage createNewGrayscaleImage(double[][] imageData) {		
+		int width = imageData[0].length;
+		int height = imageData.length;
+
+		// Create buffered image that does not support transparency
+		BufferedImage bimage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+		
+		return bimage;
+	}
+	
 	/**
 	 * Helper method to change colorspace of image.
 	 * 
