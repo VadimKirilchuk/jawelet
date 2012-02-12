@@ -51,6 +51,28 @@ public final class AnalyzeUtils {
 		return result;
 	}
 
+    public static double calculateDispersion(int[][] data, int startx, int starty, int endx, int endy) {
+        int elementsCount = (endx - startx) * (endy - starty);
+        // counting average
+        double average = 0;
+        for (int row = startx; row < endx; ++row) {
+            for (int col = starty; col < endy; ++col) {
+                average += data[row][col];
+            }
+        }
+        average /= elementsCount;
+
+        // counting summ of square difference
+        double summ = 0;
+        for (int row = startx; row < endx; ++row) {
+            for (int col = starty; col < endy; ++col) {
+                summ += (data[row][col] - average) * (data[row][col] - average);
+            }
+        }
+
+        return summ / elementsCount;
+    }
+
 	public static double calculateEntropy(int[][] data, int startx, int starty,
 			int endx, int endy) {
 		// counting frequency
