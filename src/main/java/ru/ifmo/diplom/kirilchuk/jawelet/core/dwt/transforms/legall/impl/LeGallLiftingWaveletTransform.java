@@ -2,7 +2,7 @@ package ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.legall.impl;
 
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters.legall.impl.LeGallFiltersFactory;
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.DWTransform1D;
-import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
+import ru.ifmo.diplom.kirilchuk.util.Assert;
 
 /**
  * Class that represents DiscreteWaveletTransform on Le Gall filter bank basis

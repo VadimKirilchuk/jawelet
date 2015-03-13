@@ -5,9 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- *
  * @author Kirilchuk V.E.
- * @deprecated
+ * @deprecated as used by deprecated methods or classes
  */
 public class DecompositionResult {
     private int level;

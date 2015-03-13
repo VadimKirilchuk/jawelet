@@ -12,7 +12,7 @@ import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
  * @see FusionEncoder
  * @author Kirilchuk V.E.
  */
-public class FusionDecoder {
+public class FusionDecoder {  //broken because of decode method..have no time for refactoring
 	
 	private ArithDecoder arithmeticDecoder;
 	private Decoder monotoneDecoder;

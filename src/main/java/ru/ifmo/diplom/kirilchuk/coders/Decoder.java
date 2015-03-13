@@ -3,7 +3,6 @@ package ru.ifmo.diplom.kirilchuk.coders;
 import java.io.IOException;
 
 import ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithDecoder;
-import ru.ifmo.diplom.kirilchuk.coders.impl.fusion.FusionDecoder;
 import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein.LevenshteinDecoder;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
 

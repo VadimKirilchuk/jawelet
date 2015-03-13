@@ -6,12 +6,10 @@ import java.io.ByteArrayOutputStream;
 import junit.framework.Assert;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ru.ifmo.diplom.kirilchuk.coders.Decoder;
 import ru.ifmo.diplom.kirilchuk.coders.Encoder;
-import ru.ifmo.diplom.kirilchuk.coders.StringBitOutput;
 import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneCodeInputStream;
 import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.MonotoneCodeOutputStream;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;

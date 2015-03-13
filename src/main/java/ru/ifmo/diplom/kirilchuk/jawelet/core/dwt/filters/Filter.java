@@ -1,6 +1,6 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters;
 
-import ru.ifmo.diplom.kirilchuk.jawelet.util.FilterUtils;
+import ru.ifmo.diplom.kirilchuk.util.FilterUtils;
 
 /**
  * Default implementation of Finite Impulse Response filter(FIR).

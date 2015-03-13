@@ -2,7 +2,6 @@ package ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.strategies.impl;
 
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters.Filter;
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.DWTransformStrategy;
-import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.Sampler;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.Windower;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.Action;
@@ -10,10 +9,11 @@ import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.Extensioner;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.CyclicBeginExtension;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.CyclicEndExtension;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.ZeroPaddingToEven;
+import ru.ifmo.diplom.kirilchuk.util.MathUtils;
 
 /**
- * @deprecated not works with 5/3 and other odd length filters.
  * @author Kirilchuk V.E.
+ * @deprecated not works with 5/3 and other odd length filters.
  */
 public class CyclicWrappingTransformStrategy implements DWTransformStrategy {
     private final Sampler     sampler     = new Sampler();

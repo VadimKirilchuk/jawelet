@@ -5,7 +5,14 @@ import java.io.IOException;
 import ru.ifmo.diplom.kirilchuk.coders.Decoder;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
 
-
+/**
+ * elias(1)=0
+ * elias(21) = (1110)(00)(0101) = 1110000101
+ * 
+ * elias(i)=(unar( |bin'(|bin'(i)|)|+2 ) , bin'(|bin'(i)|), bin'(i) )
+ * 
+ * @author Kirilchuk V.E.
+ */
 public class Elias3PartDecoder implements Decoder {
 
 	public int decodeNext(BitInput in) throws IOException {

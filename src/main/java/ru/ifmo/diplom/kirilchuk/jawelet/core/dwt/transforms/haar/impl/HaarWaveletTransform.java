@@ -7,6 +7,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.DWTransform1D;
  * Class that represents DiscreteWaveletTransform on haar filter bank basis.
  * 
  * @author Kirilchuk V.E.
+ * @deprecated
  */
 public class HaarWaveletTransform extends DWTransform1D {
 

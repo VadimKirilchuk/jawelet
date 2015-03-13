@@ -1,12 +1,15 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms;
 
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters.Filter;
+import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.legall.impl.LeGallLiftingWaveletTransform;
 
 /**
  * Class that represents discrete wavelet transform strategy.
  * Main difference between strategies is method of reducing boundary effect.
  *
  * @author Kirilchuk V.E.
+ * @deprecated application uses specific {@link LeGallLiftingWaveletTransform} instead
+ * of strategy.
  */
 public interface DWTransformStrategy {
 

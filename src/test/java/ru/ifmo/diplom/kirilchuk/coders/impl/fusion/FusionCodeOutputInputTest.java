@@ -1,16 +1,8 @@
 package ru.ifmo.diplom.kirilchuk.coders.impl.fusion;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.util.Arrays;
 import java.util.Random;
-import java.util.logging.Logger;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ru.ifmo.diplom.kirilchuk.coders.Decoder;
@@ -20,10 +12,6 @@ import ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithDecoder;
 import ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithEncoder;
 import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein.LevenshteinDecoder;
 import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein.LevenshteinEncoder;
-import ru.ifmo.diplom.kirilchuk.coders.io.BitInput;
-import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
-import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitInputImpl;
-import ru.ifmo.diplom.kirilchuk.coders.io.impl.BitOutputImpl;
 
 public class FusionCodeOutputInputTest {
 	private FusionEncoder encoder;

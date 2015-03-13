@@ -1,5 +1,7 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters;
 
+import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.legall.impl.LeGallLiftingWaveletTransform;
+
 
 /**
  * Abstract class that represents AbstractFiltersFactory.(AbstractFactory pattern).
@@ -18,6 +20,8 @@ package ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters;
  * <p> So we need all filters to be fairly given in constructor.
  *
  * @author Kirilchuk V.E.
+ * @deprecated very generic. Application uses more specific {@link LeGallLiftingWaveletTransform}
+ * instead of filters factory.
  */
 public abstract class AbstractFiltersFactory {
 

@@ -6,8 +6,8 @@ import java.util.Map;
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.DWTransformStrategy;
 
 /**
- * @deprecated only one strategy that not works with 5/3 filter.
  * @author Kirilchuk V.E.
+ * @deprecated only one strategy that not works with 5/3 filter.
  */
 public class StrategiesFactory {
 

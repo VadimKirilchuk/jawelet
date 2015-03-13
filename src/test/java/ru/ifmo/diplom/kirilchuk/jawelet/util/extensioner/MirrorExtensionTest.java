@@ -1,10 +1,12 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.MirrorExtension;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.ZeroPaddingToEven;
-import static org.junit.Assert.*;
 
 /**
  *

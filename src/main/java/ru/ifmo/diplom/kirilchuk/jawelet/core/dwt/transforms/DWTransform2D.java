@@ -3,8 +3,7 @@ package ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
-import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
+import ru.ifmo.diplom.kirilchuk.util.MathUtils;
 
 /**
  * Class that corresponds for performing of 2D discrete wavelet transform.

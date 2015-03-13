@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ru.ifmo.diplom.kirilchuk.coders.StringBitOutput;
-import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein.LevenshteinEncoder;
 
 public class LevenshteinEncoderTest {
 

@@ -1,7 +1,11 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import ru.ifmo.diplom.kirilchuk.util.AnalyzeUtils;
 
 public class AnalyzeUtilsTest {
 

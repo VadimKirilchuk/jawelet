@@ -6,7 +6,7 @@ import ru.ifmo.diplom.kirilchuk.coders.Encoder;
 import ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithCodeModel;
 import ru.ifmo.diplom.kirilchuk.coders.impl.arithmetic.ArithEncoder;
 import ru.ifmo.diplom.kirilchuk.coders.io.BitOutput;
-import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
+import ru.ifmo.diplom.kirilchuk.util.Assert;
 
 /**
  * Facade encoder that combines arithmetic and monotone code to produce encoder
@@ -14,7 +14,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
  * 
  * @author Kirilchuk V.E.
  */
-public class FusionEncoder {// implements Encoder {
+public class FusionEncoder {// implements Encoder { //broken because of encode method..have no time for refactoring
 	
 	private ArithEncoder arithmeticEncoder;
 	private Encoder monotoneEncoder;

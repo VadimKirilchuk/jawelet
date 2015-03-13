@@ -3,10 +3,10 @@ package ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms;
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.DecompositionResult;
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters.AbstractFiltersFactory;
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.strategies.impl.StrategiesFactory;
-import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
-import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.Extensioner;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.ZeroPaddingTo2Power;
+import ru.ifmo.diplom.kirilchuk.util.Assert;
+import ru.ifmo.diplom.kirilchuk.util.MathUtils;
 
 /**
  * Abstract class that corresponds for providing basic implementation
@@ -43,7 +43,7 @@ public abstract class DWTransform1D {
      *
      * @param data input vector to decompose.
      * @return result of decomposition.
-     * @deprecated
+     * @deprecated use inplace transformations
      */
     public DecompositionResult decompose(double[] data) {
         Assert.argNotNull(data);
@@ -71,7 +71,7 @@ public abstract class DWTransform1D {
      * @param data input vector to decompose.
      * @param level level to which decompose.
      * @return result of decomposition.
-     * @deprecated
+     * @deprecated use inplace transformations
      */
     public DecompositionResult decompose(double[] data, int level) {//TODO check can we have approximation of size 3?
         Assert.argNotNull(data);
@@ -150,17 +150,17 @@ public abstract class DWTransform1D {
         throw new UnsupportedOperationException("Unsupported operation"); //TODO
     }
 
-    @Deprecated
+    @Deprecated //use inplace transformations
     private double[] decomposeLow(double[] data) {
         return strategy.decomposeLow(data, filtersFactory.getLowDecompositionFilter());
     }
 
-    @Deprecated
+    @Deprecated //use inplace transformations
     private double[] decomposeHigh(double[] data) {
         return strategy.decomposeHigh(data, filtersFactory.getHighDecompositionFilter());
     }
 
-    @Deprecated
+    @Deprecated //use inplace transformations
     private double[] reconstruct(double[] approximation, double[] details) {
         return strategy.reconstruct(approximation, details,
                                     filtersFactory.getLowReconstructionFilter(),

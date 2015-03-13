@@ -1,12 +1,11 @@
 package ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import ru.ifmo.diplom.kirilchuk.coders.StringBitInput;
-import ru.ifmo.diplom.kirilchuk.coders.impl.monotone.levenshtein.LevenshteinDecoder;
-
-import static org.junit.Assert.*;
 
 public class LevenshteinDecoderTest {
 

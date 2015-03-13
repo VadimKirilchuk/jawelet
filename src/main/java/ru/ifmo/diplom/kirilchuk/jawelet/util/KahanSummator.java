@@ -1,7 +1,9 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.util;
 
 /**
- *
+ * Google it in wikipedia!
+ * It wasnt used in my work, but maybe will help you.
+ * 
  * @author Kirilchuk V.E.
  */
 public class KahanSummator {

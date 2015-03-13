@@ -3,19 +3,20 @@ package ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.legall.impl;
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters.Filter;
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters.legall.impl.LeGallFiltersFactory;
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.DWTransform1D;
-import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
-import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.Sampler;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.Windower;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.Extensioner;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.AddLastToEnd;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.CopyElementToBegin;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions.MirrorExtension;
+import ru.ifmo.diplom.kirilchuk.util.Assert;
+import ru.ifmo.diplom.kirilchuk.util.MathUtils;
 
 /**
  * Class that represents DiscreteWaveletTransform on Le Gall filter bank basis.
  * 
  * @author Kirilchuk V.E.
+ * @deprecated use lifting transform cause it ALWAYS give perfect reconstruction!
  */
 public class LeGallWaveletTransform extends DWTransform1D {
     private final Sampler     sampler     = new Sampler();

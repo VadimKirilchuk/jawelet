@@ -1,9 +1,13 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.util;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Random;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import ru.ifmo.diplom.kirilchuk.util.FilterUtils;
 
 public class FilterUtilsTest {
 

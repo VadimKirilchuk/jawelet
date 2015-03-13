@@ -16,7 +16,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.DecompositionResult;
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.DWTransform1D;
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.haar.impl.HaarWaveletTransform;
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.transforms.legall.impl.LeGallWaveletTransform;
-import ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils;
+import ru.ifmo.diplom.kirilchuk.util.MathUtils;
 
 /**
  *

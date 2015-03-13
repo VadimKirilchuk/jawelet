@@ -1,6 +1,5 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters.legall.impl;
 
-import static ru.ifmo.diplom.kirilchuk.jawelet.util.MathUtils.SQRT_32;
 import ru.ifmo.diplom.kirilchuk.jawelet.core.dwt.filters.Filter;
 
 /**

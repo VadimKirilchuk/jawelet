@@ -20,10 +20,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 
-import ru.ifmo.diplom.kirilchuk.jawelet.gui.util.ImageUtils;
-import ru.ifmo.diplom.kirilchuk.jawelet.gui.util.SwingUtils;
-import ru.ifmo.diplom.kirilchuk.jawelet.toolbox.ImageWaveletTransformer;
-import ru.ifmo.diplom.kirilchuk.jawelet.util.ArrayUtils;
+import ru.ifmo.diplom.kirilchuk.util.ImageUtils;
+import ru.ifmo.diplom.kirilchuk.util.SwingUtils;
 
 /**
  * Main frame
@@ -33,7 +31,7 @@ import ru.ifmo.diplom.kirilchuk.jawelet.util.ArrayUtils;
 public class JaweletMainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	private final int width = 800;
+	private final int width  = 800;
 	private final int heigth = 600;
 	
 	private final ImageWaveletTransformer transformer = new ImageWaveletTransformer();
@@ -103,8 +101,7 @@ public class JaweletMainFrame extends JFrame {
 				JaweletMainFrame gui = JaweletMainFrame.this;
 				try {
 					File file = SwingUtils.chooseImageFile(gui);
-					if (file == null) {
-						SwingUtils.showError(gui, "You didn`t select any file.");
+					if (file == null) {						
 						return;
 					}
 
@@ -115,7 +112,7 @@ public class JaweletMainFrame extends JFrame {
 					}
 
 					/* autoconvert to grayscale */
-					if(autoGray.isSelected()) {//TODO do this task in background
+					if (autoGray.isSelected()) {
 						image = ImageUtils.tryCreateGrayscaleCopy(image);
 					}
 					gui.setImage(image);
@@ -134,9 +131,15 @@ public class JaweletMainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JaweletMainFrame gui = JaweletMainFrame.this;
 				try {
-					ImageUtils.saveAsBitmap(image, "/home/chibis/Desktop/out.bmp");
+					File file = SwingUtils.saveImageFile(gui);
+					if (file == null) {						
+						return;
+					}
+					ImageUtils.saveAsBitmap(image, file);
 				} catch (IOException ex) {
 					SwingUtils.showError(gui, ex.getMessage());
+				} catch (Exception e2) {
+					SwingUtils.showError(gui, e2.getMessage());
 				}
 			}
 		});
@@ -164,16 +167,20 @@ public class JaweletMainFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {			
 			double[][] result;
 			int level;
-			if (e.getSource() == decomposeButton) {
-				level = (Integer) spinner.getValue();
-				result = transformer.decomposeTransform(image, level).getData();
-				result = ImageUtils.grayscaleNormalize(result);
-			} else {
-				level = (Integer) spinner.getValue();
-				result = transformer.reconstructTransform(level).getData();
+			try {
+				if (e.getSource() == decomposeButton) {
+					level = (Integer) spinner.getValue();
+					result = transformer.decomposeTransform(image, level)
+							.getData();
+					result = ImageUtils.trimToUnsignedByteRange(result);
+				} else {
+					result = transformer.reconstructTransform().getData();
+				}
+				ImageUtils.setNewGrayscaleImageData(image, result);
+				imageLabel.repaint();
+			} catch (IllegalArgumentException ex) {
+				SwingUtils.showError(JaweletMainFrame.this, ex.getMessage());
 			}
-			ImageUtils.setNewGrayscaleImageData(image, result);
-			imageLabel.repaint();
 		}
 	}
 }

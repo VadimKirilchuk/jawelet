@@ -1,7 +1,7 @@
 package ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.actions;
 
-import ru.ifmo.diplom.kirilchuk.jawelet.util.Assert;
 import ru.ifmo.diplom.kirilchuk.jawelet.util.extensioner.Action;
+import ru.ifmo.diplom.kirilchuk.util.Assert;
 
 /**
  *
